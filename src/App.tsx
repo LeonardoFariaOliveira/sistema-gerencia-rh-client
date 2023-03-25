@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Testando o merge das branchs, de novo - 3
+          Testando o merge das branchs
         </p>
         <a
           className="App-link"
