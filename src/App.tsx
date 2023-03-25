@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          CI/CD do front deu certo, podemos iniciar
+          CI/CD do front não deu certo, podemos iniciar
         </p>
         <a
           className="App-link"
