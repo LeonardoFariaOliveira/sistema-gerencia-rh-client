@@ -1,13 +1,9 @@
+import { MouseEventHandler } from "react";
 import { InputButton } from "./style";
 
-interface ButtonProps {
-    children: string;
-    action: Function;
-}
-
-const ButtonPrimary = ({ children, action }: ButtonProps):JSX.Element => {
+const ButtonPrimary = ({ action, children }: { action: MouseEventHandler<HTMLDivElement>, children: string }):JSX.Element => {
     return(
-        <InputButton onClick={(e) => action}> { children } </InputButton>
+        <InputButton onClick={action}> { children } </InputButton>
     )
 };
 

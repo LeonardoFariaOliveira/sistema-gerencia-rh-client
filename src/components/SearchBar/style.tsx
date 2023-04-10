@@ -7,7 +7,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    height: 50px;
+    height: 46px;
     width: 100%;
     max-width: 950px;
     overflow: hidden;
@@ -29,12 +29,12 @@ export const Input = styled.input`
     ::-webkit-input-placeholder{
         color: ${({ theme }) => theme.text.secondary};
         font-style: 500;
-        font-size: 20px;
+        font-size: 18px;
 }
     ::-moz-placeholder {
         color: ${({ theme }) => theme.text.secondary};
         font-style: 500;
-        font-size: 20px;;
+        font-size: 18px;;
 }
 
 `;
@@ -48,7 +48,7 @@ export const Icon = styled.div`
     justify-content: center;
     background-color: ${({ theme }) => theme.colors.secondary};
     color: ${({ theme }) => theme.colors.primary};
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
     cursor: pointer;
 

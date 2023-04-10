@@ -1,13 +1,10 @@
 import { Container, Icon } from './style'
 import { MdKeyboardArrowRight } from 'react-icons/md'
+import { MouseEventHandler } from 'react';
 
-interface ButtonProps {
-    children: string;
-}
-
-const ButtonSecondary = ({ children }: ButtonProps): JSX.Element => {
+const ButtonSecondary = ({ action, children }: { action: MouseEventHandler<HTMLDivElement>, children: string }): JSX.Element => {
     return (
-      <Container>
+      <Container onClick={action}>
         { children }
         <Icon> <MdKeyboardArrowRight /> </Icon>
       </Container>

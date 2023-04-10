@@ -40,7 +40,7 @@ const Menu: React.FC = () => {
                 <SelectionStyled text={ 'Empresas' } img={ gear }>
                     <ul>
                         <li onClick={() => toggleMenu()}> <Link style={ linkStyle } to={'/companyList'} > Dados da Empresa </Link> </li>
-                        <li onClick={() => toggleMenu()}> <Link style={ linkStyle } to={'/'} > Funcionários </Link> </li>
+                        <li onClick={() => toggleMenu()}> <Link style={ linkStyle } to={'/employeeList'} > Funcionários </Link> </li>
                     </ul>
                 </SelectionStyled>
 

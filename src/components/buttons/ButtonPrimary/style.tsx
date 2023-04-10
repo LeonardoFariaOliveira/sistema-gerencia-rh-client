@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputButton = styled.button`
+export const InputButton = styled.div`
 
     width: 510px;
     height: 80px;
@@ -13,5 +13,8 @@ export const InputButton = styled.button`
     cursor: pointer;
     border-style: none;
     font-family: 'Nunito', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 `;

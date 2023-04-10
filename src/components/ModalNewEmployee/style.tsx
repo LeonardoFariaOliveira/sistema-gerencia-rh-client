@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<any>`
 
     background-color: ${({ theme }) => theme.colors.primary};
     -webkit-box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.40);
@@ -10,8 +10,10 @@ export const Container = styled.div`
     box-sizing: border-box;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
     top: 20%;
+    transform: translate(${({ showModal }) => showModal ? '-50% , 0' : '-50% , -200%'});
+    transition: all ease .8s;
+    z-index: 99999;
 
 `;
 

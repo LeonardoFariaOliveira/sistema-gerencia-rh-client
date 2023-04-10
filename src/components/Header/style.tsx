@@ -6,7 +6,7 @@ export const Container = styled.header`
     top: 0;
     right: 0;
     width: calc(100% - 80px);
-    height: 96px;
+    height: 88px;
     background-color: ${({ theme }) => theme.colors.primary};
     z-index: 99;
     display: flex;
