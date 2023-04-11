@@ -30,10 +30,9 @@ const EmployeeList = ():JSX.Element => {
     }
 
     useEffect(() => {
-        console.log()
-        setHasAlreadyLoaded(true)
         getAllEmployees();
-    }, [showModal, hasAlreadyLoaded])
+        console.log(employees.length)
+    }, [employees.length])
     
 
     interface EmployeeInfo {
