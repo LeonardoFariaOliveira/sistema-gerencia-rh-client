@@ -40,27 +40,30 @@ const ModalNewEmployee = ({ toggleModal, showModal }: ModalInterface): JSX.Eleme
 
             <OptionsWrapper>
 
-                <InputLarge action = {(e: { target: { value: SetStateAction<string>; }; }) => setName(e.target.value)}> Nome Completo </InputLarge>
+                <InputLarge type = {"text"}  action = {(e: { target: { value: SetStateAction<string>; }; }) => setName(e.target.value)}> Nome Completo </InputLarge>
                 <ShortInputsDiv>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCpf(e.target.value)}> CPF </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCtps(e.target.value)}> CTPS </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setAdmissionDate(e.target.value)}> Data de Admissão </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setBirthDate(e.target.value)}> Data de Nascimento </InputShort>
+                    <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setCpf(e.target.value)}> CPF </InputShort>
+                    <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setCtps(e.target.value)}> CTPS </InputShort>
+                    <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setAdmissionDate(e.target.value)}> Data de Admissão </InputShort>
+                    <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setBirthDate(e.target.value)}> Data de Nascimento </InputShort>
                 </ShortInputsDiv>
-                <InputLarge action = {(e: { target: { value: SetStateAction<string>; }; }) => setJob(e.target.value)}> Função </InputLarge>
-                <InputLarge action = {(e: { target: { value: SetStateAction<string>; }; }) => setSector(e.target.value)}> Setor </InputLarge>
-                <InputLarge action = {(e: { target: { value: SetStateAction<string>; }; }) => setSalary(e.target.value)}> Salário </InputLarge>
+                <InputLarge type = {"text"}  action = {(e: { target: { value: SetStateAction<string>; }; }) => setJob(e.target.value)}> Função </InputLarge>
+                <InputLarge type = {"text"} action = {(e: { target: { value: SetStateAction<string>; }; }) => setSector(e.target.value)}> Setor </InputLarge>
+                <InputLarge type = {"text"} action = {(e: { target: { value: SetStateAction<string>; }; }) => setSalary(e.target.value)}> Salário </InputLarge>
                 <ShortInputsDiv>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)}> País </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)}> Estado </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)}> Cidade </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)}> Bairro </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)}> Rua </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)}> Número </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)}> País </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)}> Estado </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)}> Cidade </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)}> Bairro </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)}> Rua </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)}> Número </InputShort>
                 </ShortInputsDiv>
                 <Spacement />
-                <ButtonSecondary action={() => newEmployee(userContext.tokenUser, name, cpf, ctps, job, sector, salary, admissionDate, birthDate, country, countryArea, city, neighboor, street, number)
-                }> Cadastrar </ButtonSecondary>
+                <ButtonSecondary action={() => {
+                    toggleModal()
+                    newEmployee(userContext.tokenUser, name, cpf, ctps, job, sector, salary, admissionDate, birthDate, country, countryArea, city, neighboor, street, number)
+                
+                }}> Cadastrar </ButtonSecondary>
             </OptionsWrapper>
         </Container>
     )

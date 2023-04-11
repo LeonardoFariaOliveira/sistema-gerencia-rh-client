@@ -2,6 +2,13 @@ import { SetStateAction, useState, useContext } from 'react';
 import { AuthUserContext } from '../../contexts/AuthUserContext';
 import ButtonPrimary from '../buttons/ButtonPrimary';
 import { LoginForm, Title, InputStyled, PassRecoveryStyled } from './style';
+import ExceptionMessage from '../ExceptionMessage';
+
+
+export interface ErrorsProps{
+    status:string
+    message:string
+}
 
 const LoginUserForm = (): JSX.Element => {
 
@@ -9,9 +16,34 @@ const LoginUserForm = (): JSX.Element => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [hasError, setHasError] = useState(false);
+    const [statusErrorProps, setStatusErrorProps] = useState("");
+    const [messageErrorProps, setMessageErrorProps] = useState("");
+
+    const handleSubmit = async() => {
+        try{
+            console.log("aqui")
+            await userContext.loginUser(email, password)
+        }catch(e:any){
+            console.log("error")
+            console.log(e)
+            setStatusErrorProps(e.response.data.statusCode)
+            setMessageErrorProps(e.response.data.message[0])
+            setHasError(true)
+        }
+    }
+
+ 
+
 
     return(      
         <LoginForm>
+            {
+                hasError ?
+            (<ExceptionMessage status={statusErrorProps} message={messageErrorProps}/>)
+                :
+                null
+            }
             <Title> Login </Title>
             <InputStyled 
             type="text"
@@ -27,7 +59,7 @@ const LoginUserForm = (): JSX.Element => {
             placeholder = "Senha"
             /> 
 
-            <ButtonPrimary action={() => userContext.loginUser(email, password)}> Enviar </ButtonPrimary>
+            <ButtonPrimary action={() => handleSubmit()}> Enviar </ButtonPrimary>
             <PassRecoveryStyled> Esqueceu a senha? </PassRecoveryStyled>
         </LoginForm>
     )

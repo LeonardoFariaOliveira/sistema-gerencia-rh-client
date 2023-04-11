@@ -17,6 +17,7 @@ const CompanyList = ():JSX.Element => {
     
     const adminContext = useContext(AuthAdminContext)
     const [companies, setCompanies] = useState<CompanieInfo[]>([])
+    const [showModal, setShowModal] = useState<boolean>(false)
 
     interface CompanieInfo {
         createdAt: string;
@@ -36,23 +37,24 @@ const CompanyList = ():JSX.Element => {
     const response = useGetCompanies();
     
     async function getAllCompanies () {
-        await response.then(resolve => resolve.clone().json()).then(data => setCompanies(data.companies))
+        await response.then(resolve => resolve.data).then(data => setCompanies(data.companies))
+    }
+
+    const toggleModal = () => {
+        setShowModal(!showModal)
     }
 
     useEffect(() => {
       getAllCompanies();
-    }, [])
+    }, [toggleModal])
 
-    const [showModal, setShowModal] = useState<boolean>(false)
-    const toggleModal = () => {
-        setShowModal(!showModal)
-    }
+
 
     if(adminContext.token){
         return(
             <>
             <Menu />
-            <Header name="ícaro" user="admin"/>
+            <Header name="Leonardo Faria" user="admin"/>
             <BaseScreen>
             <SearchBar />
             <TableWrapper text="Lista de empresas cadastradas" items={items} toggleModal={toggleModal}>

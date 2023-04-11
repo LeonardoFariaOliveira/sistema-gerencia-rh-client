@@ -29,25 +29,24 @@ export const Title = styled.p`
 export const InputStyled = styled.input`
 
     width: 480px;
-    height: 80px;
+    height: 50px;
     margin: 12px 0;
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
     border-color: ${({ theme }) => theme.text.secondary};
-    cursor: pointer;
     padding-left: 20px;
-    font-size: 24px;
+    font-size: 16px;
     
     ::-webkit-input-placeholder{
         color: ${({ theme }) => theme.text.secondary};
         font-style: 500;
-        font-size: 20px;
+        font-size: 18px;
 }
     ::-moz-placeholder {
         color: ${({ theme }) => theme.text.secondary};
         font-style: 500;
-        font-size: 20px;;
+        font-size: 18px;;
 }
 `;
 

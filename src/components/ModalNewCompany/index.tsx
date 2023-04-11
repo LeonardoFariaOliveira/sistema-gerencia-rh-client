@@ -35,27 +35,29 @@ const ModalNewCompany = ({ toggleModal, showModal }: ModalInterface): JSX.Elemen
             <Header> Cadastre uma Empresa
             <CloseBtn onClick={toggleModal}> <IoMdClose /> </CloseBtn>
             </Header>
-
             <OptionsWrapper>
                 <ShortInputsDiv>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCorporateName(e.target.value)}> Razão Social </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setPopularName(e.target.value)}> Nome Fantasia </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCnpj(e.target.value)}> CNPJ </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCorporateName(e.target.value)}> Razão Social </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setPopularName(e.target.value)}> Nome Fantasia </InputShort>
+                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCnpj(e.target.value)}> CNPJ </InputShort>
                 </ShortInputsDiv>
-                <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}> E-mail </InputShort>
+                <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}> E-mail </InputShort>
                 <ShortInputsDiv>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}> Senha </InputShort>
-                    <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setSecondPassword(e.target.value)}> Confirmar Senha </InputShort>
-                <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setPhoneNumber(e.target.value)}> Telefone </InputShort>
-                <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)}> País </InputShort>
-                <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)}> Estado </InputShort>
-                <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)}> Cidade </InputShort>
-                <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)}> Bairro </InputShort>
-                <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)}> Rua </InputShort>
-                <InputShort action = {(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)}> Número </InputShort>
+                    <InputShort type ={ "password" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}> Senha </InputShort>
+                    <InputShort type ={ "password" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setSecondPassword(e.target.value)}> Confirmar Senha </InputShort>
+                <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setPhoneNumber(e.target.value)}> Telefone </InputShort>
+                <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)}> País </InputShort>
+                <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)}> Estado </InputShort>
+                <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)}> Cidade </InputShort>
+                <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)}> Bairro </InputShort>
+                <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)}> Rua </InputShort>
+                <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)}> Número </InputShort>
                 </ShortInputsDiv>
                 <Spacement />
-                <ButtonSecondary action={() => newCompany(admContext.token, email, password, corporateName, popularName, cnpj, phoneNumber, country, countryArea, city, neighboor, street, number,)
+                <ButtonSecondary action={() => {
+                    newCompany(admContext.token, email, password, corporateName, popularName, cnpj, phoneNumber, country, countryArea, city, neighboor, street, number,)
+                    toggleModal()
+                }
                 }> Cadastrar </ButtonSecondary>
             </OptionsWrapper>
         </Container>

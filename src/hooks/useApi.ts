@@ -1,22 +1,20 @@
 import { useContext } from "react";
 import { AuthAdminContext } from "../contexts/AuthAdminContext";
 import { AuthUserContext } from "../contexts/AuthUserContext";
+import axios from "axios";
 
 export async function newAdmin (name: string, password: string){
-  const response = await fetch('http://localhost:3333/v1/03202327', 
+  const response = await axios.post('http://localhost:3333/v1/03202327', 
   {   
-    method: "POST",
+    name: name,
+    password: password,
+  },
+  {
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
-    body: JSON.stringify({
-        name: name,
-        password: password,
-      }),
-    }
-    )
-    const data = await response.json()
-    console.log(data)
+  })
+    console.log(response)
   }
 
   export async function newCompany (
@@ -36,32 +34,26 @@ export async function newAdmin (name: string, password: string){
   photoUrl?: string,
 ){
   
-      console.log(JSON.stringify({
-        email:email,
-        password:password,
-        corporateName: corporateName,
-        popularName: popularName,
-        cnpj: cnpj,
-        photoUrl: photoUrl,
-        phoneNumber: phoneNumber,
-        address:{
-          country: country,
-          countryArea: countryArea,
-          city: city,
-          neighboor: neighboor,
-          street: street,
-          number: number,
-        }
-      }))
+      // console.log(JSON.stringify({
+      //   email:email,
+      //   password:password,
+      //   corporateName: corporateName,
+      //   popularName: popularName,
+      //   cnpj: cnpj,
+      //   photoUrl: photoUrl,
+      //   phoneNumber: phoneNumber,
+      //   address:{
+      //     country: country,
+      //     countryArea: countryArea,
+      //     city: city,
+      //     neighboor: neighboor,
+      //     street: street,
+      //     number: number,
+      //   }
+      // }))
       
-      const response = await fetch('http://localhost:3333/v1/companies', 
+      const response = await axios.post('http://localhost:3333/v1/companies', 
     {   
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        'Authentication': `Bearer ${token}`,
-      },
-      body: JSON.stringify({
         email:email,
         password:password,
         corporateName: corporateName,
@@ -77,10 +69,15 @@ export async function newAdmin (name: string, password: string){
           street: street,
           number: number,
         }
-      }),
-    })
-    const data = await response.json()
-    console.log(data)
+      },
+      {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          'Authentication': `Bearer ${token}`,
+        },
+      }
+    )
+    console.log(response)
   }
 
   export async function newEmployee (
@@ -102,35 +99,29 @@ export async function newAdmin (name: string, password: string){
   photoUrl?: string,
 ){
   
-      console.log(JSON.stringify({
-        name:name,
-        CPF:cpf,
-        CTPS: ctps,
-        job: job,
-        sector: sector,
-        photoUrl: photoUrl,
-        salary: salary,
-        admissionDate: admissionDate,
-        birthDate: birthDate,
-        companyId: tokenUser,
-        address:{
-          country: country,
-          countryArea: countryArea,
-          city: city,
-          neighboor: neighboor,
-          street: street,
-          number: number,
-        }
-      }))
+      // console.log(JSON.stringify({
+      //   name:name,
+      //   CPF:cpf,
+      //   CTPS: ctps,
+      //   job: job,
+      //   sector: sector,
+      //   photoUrl: photoUrl,
+      //   salary: salary,
+      //   admissionDate: admissionDate,
+      //   birthDate: birthDate,
+      //   companyId: tokenUser,
+      //   address:{
+      //     country: country,
+      //     countryArea: countryArea,
+      //     city: city,
+      //     neighboor: neighboor,
+      //     street: street,
+      //     number: number,
+      //   }
+      // }))
       
-      const response = await fetch('http://localhost:3333/v1/employees', 
+      const response = await axios.post('http://localhost:3333/v1/employees', 
     {   
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        'Authentication': `Bearer ${tokenUser}`,
-      },
-      body: JSON.stringify({
         name:name,
         cpf:cpf,
         ctps: ctps,
@@ -149,49 +140,54 @@ export async function newAdmin (name: string, password: string){
           street: street,
           number: number,
         }
-      }),
-    })
-    const data = await response.json()
-    console.log(data)
+      },
+      {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          'Authentication': `Bearer ${tokenUser}`,
+        },
+      }
+    )
+    console.log(response)
   }
   
   export async function loginAdminFunction(user: string, password: string) {
-    const response = await fetch("http://localhost:3333/v1/auth/login", {
-      method: "POST",
-      headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify({
-      user: user,
-      password: password,
-    }),
-  });
-  const data = await response.json();
-  const token = data.jwtToken;
+    const response = 
+    await axios.post("http://localhost:3333/v1/auth/login", {
+      user:user,
+      password:password,
+    })
+  //   await fetch("http://localhost:3333/v1/auth/login", {
+  //     method: "POST",
+  //     headers: {
+  //     "Content-type": "application/json; charset=UTF-8",
+  //   },
+  //   body: JSON.stringify({
+  //     user: user,
+  //     password: password,
+  //   }),
+  // });
+
+  const token = response.data.jwtToken;
   return token;
 }
 
 export async function loginUserFunction(email: string, password: string) {
-  const response = await fetch("http://localhost:3333/v1/companies/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-  });
-  const data = await response.json();
-  const token = data.jwtToken;
-  return token;
+
+    const response = 
+    await axios.post("http://localhost:3333/v1/companies/auth/login", {
+      email:email,
+      password:password,
+    })
+    const token = response.data.jwtToken;
+    return token;
 }
 
 
 export async function useGetEmployees () {
   const userContext = useContext(AuthUserContext)
   
-  const response = await fetch('http://localhost:3333/v1/employees/281d171b-fb1e-4da4-881c-dea27a332f59',{
+  const response = await axios.get('http://localhost:3333/v1/employees/281d171b-fb1e-4da4-881c-dea27a332f59',{
     headers: {
       Authentication: `Bearer ${userContext.tokenUser}`,
   }
@@ -202,7 +198,7 @@ export async function useGetEmployees () {
 export async function useGetCompanies () {
   const adminContext = useContext(AuthAdminContext)
   
-  const response = await fetch('http://localhost:3333/v1/companies',{
+  const response = await axios.get('http://localhost:3333/v1/companies',{
     headers: {
       Authentication: `Bearer ${adminContext.token}`,
   }

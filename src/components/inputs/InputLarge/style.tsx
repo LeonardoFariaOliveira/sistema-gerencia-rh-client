@@ -26,7 +26,6 @@ export const InputStyled = styled.input`
     border-style: solid;
     border-width: 1px;
     border-color: ${({ theme }) => theme.text.secondary};
-    cursor: pointer;
     padding-left: 16px;
     font-size: 16px;
     color: ${({ theme }) => theme.text.primary};

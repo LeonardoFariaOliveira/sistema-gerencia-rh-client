@@ -14,17 +14,26 @@ import ListLineEmployees from "../../components/ListLineEmployees";
 const EmployeeList = ():JSX.Element => {
     
     const userContext = useContext(AuthUserContext)
+    const [hasAlreadyLoaded, setHasAlreadyLoaded] = useState<boolean>(false)
+    const [showModal, setShowModal] = useState<boolean>(false)
     const [employees, setEmployees] = useState<EmployeeInfo[]>([]);
     
     const response = useGetEmployees();
+
+
+    const toggleModal = () => {
+        setShowModal(!showModal)
+    }
     
     async function getAllEmployees () {
-        await response.then(resolve => resolve.clone().json()).then(data => setEmployees(data.data.employees))
+        await response.then(resolve => resolve.data).then(data => setEmployees(data.data.employees))
     }
 
     useEffect(() => {
-            getAllEmployees();
-    }, [])
+        console.log()
+        setHasAlreadyLoaded(true)
+        getAllEmployees();
+    }, [showModal, hasAlreadyLoaded])
     
 
     interface EmployeeInfo {
@@ -46,16 +55,13 @@ const EmployeeList = ():JSX.Element => {
         { id: 6, content: 'Salário' },
       ];
 
-    const [showModal, setShowModal] = useState<boolean>(false)
-    const toggleModal = () => {
-        setShowModal(!showModal)
-    }
+
     
     if(userContext.tokenUser){
         return(
             <>
             <Menu />
-            <Header name="ícaro" user="admin"/>
+            <Header name="Cyberswitch" user="admin"/>
             <BaseScreen>
             <SearchBar />
             <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
