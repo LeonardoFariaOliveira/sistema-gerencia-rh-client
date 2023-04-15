@@ -20,7 +20,7 @@ export async function newAdmin (name: string, password: string){
   }
 
   export async function newCompany (
-  token: Promise<any> | null,
+  token: string | null,
   email:string,
   password: string,
   corporateName: string,
@@ -84,7 +84,7 @@ export async function newAdmin (name: string, password: string){
   }
 
   export async function newEmployee (
-  tokenUser: Promise<any> | null,
+  tokenUser: string | null,
   name:string,
   cpf: string,
   ctps: string,

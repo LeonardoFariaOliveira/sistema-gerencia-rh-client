@@ -4,12 +4,17 @@ import { AuthUserContext } from "./AuthUserContext";
 
 export const AuthUserProvider = ({ children }: {children: JSX.Element}) => {
 
-    const [tokenUser, setTokenUser] = useState<Promise<string> | null>(null);
+    const [tokenUser, setTokenUser] = useState<string | null>(null);
 
     const loginUser = async (user: string, password: string) => {
         const response = await loginUserFunction(user, password);
-        setTokenUser(await response);
-        console.log(tokenUser)
+        setTokenUser(await response.toString());
+        await setLocalStorage(await response.toString());
+    }
+
+    const setLocalStorage = (token: string | null) => {
+        token ? localStorage.setItem('token', token) : localStorage.setItem('token', '');
+        console.log( 'setou aqui ' + token)
     }
 
     return (

@@ -4,12 +4,17 @@ import { AuthAdminContext } from "./AuthAdminContext";
 
 export const AuthAdminProvider = ({ children }: {children: JSX.Element}) => {
 
-    const [token, setToken] = useState<Promise<string> | null>(null);
+    const [token, setToken] = useState<string| null>('');
 
     const login = async (user: string, password: string) => {
        const response = await loginAdminFunction(user, password);
-       setToken(await response);
+       setToken(await response.toString());
        console.log(token)
+       setLocalStorage(token)
+    }
+
+    const setLocalStorage = (token: any) => {
+        localStorage.setItem('token', token);
     }
 
     return (

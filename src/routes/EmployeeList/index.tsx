@@ -9,7 +9,6 @@ import Menu from "../../components/Menu";
 import Header from "../../components/Header";
 import { Navigate } from "react-router-dom";
 import { AuthUserContext } from "../../contexts/AuthUserContext";
-import ListLine from "../../components/ListLineEmployees";
 import ListLineEmployees from "../../components/ListLineEmployees";
 const EmployeeList = ():JSX.Element => {
     
@@ -24,6 +23,7 @@ const EmployeeList = ():JSX.Element => {
 
     useEffect(() => {
             getAllEmployees();
+            console.log('cadastrou')
     }, [])
     
 

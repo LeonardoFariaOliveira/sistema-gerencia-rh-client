@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 interface AuthUserContextInterface{
-    tokenUser: Promise<string> | null;
+    tokenUser: string | null;
     loginUser: (user: string, password: string) => void;
 }
 
