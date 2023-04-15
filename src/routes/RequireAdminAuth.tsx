@@ -9,8 +9,6 @@ const RequireAdminAuth = (): JSX.Element => {
 
     const adminContext = useContext(AuthAdminContext)
 
-    console.log(adminContext.token)
-
     if(adminContext.token){
         return (
             <>

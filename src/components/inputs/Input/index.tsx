@@ -1,9 +1,9 @@
 import { InputHTMLAttributes, useCallback } from 'react';
 import { InputStyled } from './style'
-import { cnpj, cpf, date } from '../masks';
+import { cep, cnpj, cpf, date } from '../masks';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
-    mask?: "cpf" | "date" | "cnpj";
+    mask?: "cpf" | "date" | "cnpj" | "cep";
 }
 
 const Input:React.FC<InputProps> = ({mask, ...props}) => {
@@ -14,6 +14,7 @@ const Input:React.FC<InputProps> = ({mask, ...props}) => {
     if(mask === 'cpf'){ cpf(e); }
     if(mask === 'date'){ date(e); }
     if(mask === 'cnpj'){ cnpj(e); }
+    if(mask === 'cep'){ cep(e); }
         
       },
       [],

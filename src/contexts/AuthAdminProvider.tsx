@@ -9,7 +9,6 @@ export const AuthAdminProvider = ({ children }: {children: JSX.Element}) => {
     const login = async (user: string, password: string) => {
        const response = await loginAdminFunction(user, password);
        setToken(await response.toString());
-       console.log(token)
        setLocalStorage(token)
     }
 

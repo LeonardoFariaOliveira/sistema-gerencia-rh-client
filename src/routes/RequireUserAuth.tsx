@@ -9,9 +9,6 @@ const RequireUserAuth = (): JSX.Element => {
 
     const userContext = useContext(AuthUserContext)
 
-    console.log(userContext.tokenUser)
-    console.log(localStorage.token)
-
     if(userContext.tokenUser){
         return (
             <>

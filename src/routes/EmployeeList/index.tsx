@@ -23,7 +23,6 @@ const EmployeeList = ():JSX.Element => {
 
     useEffect(() => {
             getAllEmployees();
-            console.log('cadastrou')
     }, [])
     
 

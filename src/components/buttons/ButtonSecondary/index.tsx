@@ -1,10 +1,10 @@
 import { Container, Icon } from './style'
 import { MdKeyboardArrowRight } from 'react-icons/md'
-import { MouseEventHandler } from 'react';
+import { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
-const ButtonSecondary = ({ action, children }: { action: MouseEventHandler<HTMLDivElement>, children: string }): JSX.Element => {
+const ButtonSecondary: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, ...props }) => {
     return (
-      <Container onClick={action}>
+      <Container {...props}>
         { children }
         <Icon> <MdKeyboardArrowRight /> </Icon>
       </Container>

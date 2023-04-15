@@ -14,7 +14,6 @@ export const AuthUserProvider = ({ children }: {children: JSX.Element}) => {
 
     const setLocalStorage = (token: string | null) => {
         token ? localStorage.setItem('token', token) : localStorage.setItem('token', '');
-        console.log( 'setou aqui ' + token)
     }
 
     return (

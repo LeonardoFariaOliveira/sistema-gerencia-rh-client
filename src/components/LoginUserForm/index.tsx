@@ -27,7 +27,19 @@ const LoginUserForm = (): JSX.Element => {
             placeholder = "Senha"
             /> 
 
-            <ButtonPrimary action={() => userContext.loginUser(email, password)}> Enviar </ButtonPrimary>
+            <ButtonPrimary 
+                
+                onClick={(e) => {
+                e.preventDefault();
+                userContext.loginUser(email, password)
+                }}
+
+                onKeyPress={(e) => {
+                e.preventDefault();
+                if(e.key==='Enter'){ userContext.loginUser(email, password) }
+                }}
+                
+                > Enviar </ButtonPrimary>
             <PassRecoveryStyled> Esqueceu a senha? </PassRecoveryStyled>
         </LoginForm>
     )

@@ -15,8 +15,6 @@ export async function newAdmin (name: string, password: string){
       }),
     }
     )
-    const data = await response.json()
-    console.log(data)
   }
 
   export async function newCompany (
@@ -34,26 +32,7 @@ export async function newAdmin (name: string, password: string){
   street: string,
   number: string,
   photoUrl?: string,
-){
-  
-      console.log(JSON.stringify({
-        email:email,
-        password:password,
-        corporateName: corporateName,
-        popularName: popularName,
-        cnpj: cnpj,
-        photoUrl: photoUrl,
-        phoneNumber: phoneNumber,
-        address:{
-          country: country,
-          countryArea: countryArea,
-          city: city,
-          neighboor: neighboor,
-          street: street,
-          number: number,
-        }
-      }))
-      
+){    
       const response = await fetch('http://localhost:3333/v1/companies', 
     {   
       method: "POST",
@@ -79,8 +58,6 @@ export async function newAdmin (name: string, password: string){
         }
       }),
     })
-    const data = await response.json()
-    console.log(data)
   }
 
   export async function newEmployee (
@@ -102,27 +79,6 @@ export async function newAdmin (name: string, password: string){
   photoUrl?: string,
 ){
   
-      console.log(JSON.stringify({
-        name:name,
-        CPF:cpf,
-        CTPS: ctps,
-        job: job,
-        sector: sector,
-        photoUrl: photoUrl,
-        salary: salary,
-        admissionDate: admissionDate,
-        birthDate: birthDate,
-        companyId: tokenUser,
-        address:{
-          country: country,
-          countryArea: countryArea,
-          city: city,
-          neighboor: neighboor,
-          street: street,
-          number: number,
-        }
-      }))
-      
       const response = await fetch('http://localhost:3333/v1/employees', 
     {   
       method: "POST",
@@ -151,6 +107,7 @@ export async function newAdmin (name: string, password: string){
         }
       }),
     })
+
     const data = await response.json()
     console.log(data)
   }

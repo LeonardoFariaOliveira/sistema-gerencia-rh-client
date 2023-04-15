@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputButton = styled.div`
+export const InputButton = styled.button`
 
     width: 510px;
     height: 80px;

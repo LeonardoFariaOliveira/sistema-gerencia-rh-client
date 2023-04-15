@@ -27,7 +27,19 @@ const LoginAdminForm = (): JSX.Element => {
             placeholder = "Senha"
             /> 
 
-            <ButtonPrimary action={() =>  adminContext.login(user, password)}>Acessar</ButtonPrimary>
+            <ButtonPrimary 
+                
+                onClick={(e) => {
+                e.preventDefault();
+                adminContext.login(user, password)
+                }}
+
+                onKeyPress={(e) => {
+                e.preventDefault();
+                if(e.key==='Enter'){ adminContext.login(user, password) }
+                }}
+                
+                > Acessar </ButtonPrimary>
         </LoginForm>
     )
 };
