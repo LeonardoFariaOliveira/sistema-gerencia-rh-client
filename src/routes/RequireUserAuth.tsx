@@ -9,8 +9,6 @@ const RequireUserAuth = (): JSX.Element => {
 
     const userContext = useContext(AuthUserContext)
 
-    console.log(userContext.tokenUser)
-
     if(userContext.tokenUser){
         return (
             <>

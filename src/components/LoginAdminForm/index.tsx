@@ -57,7 +57,19 @@ const LoginAdminForm = (): JSX.Element => {
             placeholder = "Senha"
             /> 
 
-            <ButtonPrimary action={() =>  handleSubmit()}>Acessar</ButtonPrimary>
+            <ButtonPrimary 
+                
+                onClick={(e) => {
+                e.preventDefault();
+                handleSubmit()
+                }}
+
+                onKeyDownCapture={(e) => {
+                e.preventDefault();
+                if(e.key==='Enter'){ handleSubmit() }
+                }}
+                
+                > Acessar </ButtonPrimary>
         </LoginForm>
     )
 };

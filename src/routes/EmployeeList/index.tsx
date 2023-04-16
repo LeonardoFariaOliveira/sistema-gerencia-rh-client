@@ -9,12 +9,10 @@ import Menu from "../../components/Menu";
 import Header from "../../components/Header";
 import { Navigate } from "react-router-dom";
 import { AuthUserContext } from "../../contexts/AuthUserContext";
-import ListLine from "../../components/ListLineEmployees";
 import ListLineEmployees from "../../components/ListLineEmployees";
 const EmployeeList = ():JSX.Element => {
     
     const userContext = useContext(AuthUserContext)
-    const [hasAlreadyLoaded, setHasAlreadyLoaded] = useState<boolean>(false)
     const [showModal, setShowModal] = useState<boolean>(false)
     const [employees, setEmployees] = useState<EmployeeInfo[]>([]);
 

@@ -3,10 +3,13 @@ import { IoMdClose } from 'react-icons/io';
 import { AuthUserContext } from '../../contexts/AuthUserContext';
 import { newEmployee } from '../../hooks/useApi';
 import ButtonSecondary from '../buttons/ButtonSecondary';
-import InputLarge from '../inputs/InputLarge';
-import InputShort from '../inputs/IntuprShort';
 import {Container, Header, OptionsWrapper, CloseBtn, ShortInputsDiv, Spacement } from './style'
 import ExceptionMessage from '../ExceptionMessage';
+import ShortInput from '../inputs/ShortInput';
+import Input from '../inputs/Input';
+import LargeInput from '../inputs/LargeInput';
+import { useFormAction } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 interface ModalInterface {
     toggleModal: () => void;
@@ -32,8 +35,24 @@ const ModalNewEmployee = ({ toggleModal, showModal }: ModalInterface): JSX.Eleme
     const [hasError, setHasError] = useState(false);
     const [statusErrorProps, setStatusErrorProps] = useState("");
     const [messageErrorProps, setMessageErrorProps] = useState("");
+    const [cep, setCep] = useState('')
 
     const userContext = useContext(AuthUserContext)
+
+    const checkCep = (e: React.FormEvent<HTMLInputElement>) => {
+        let cep = e.currentTarget.value;
+        cep = cep.replace(/\D/g, "")
+        if(cep){
+            fetch (`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then (data => {
+                setNeighboor(data.bairro)
+                setCountryArea(data.uf)
+                setCity(data.localidade)
+                setStreet(data.logradouro)
+            })
+        }
+    }
 
     const handleSubmit = async() => {
         try{
@@ -67,29 +86,30 @@ const ModalNewEmployee = ({ toggleModal, showModal }: ModalInterface): JSX.Eleme
                 <Header> Cadastre um funcionário
                 <CloseBtn onClick={toggleModal}> <IoMdClose /> </CloseBtn>
                 </Header>
-
                 <OptionsWrapper>
-
-                    <InputLarge type = {"text"}  action = {(e: { target: { value: SetStateAction<string>; }; }) => setName(e.target.value)}> Nome Completo </InputLarge>
+                    <LargeInput title="Nome Completo"> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setName(e.target.value)} /> </LargeInput>
+                    <LargeInput title="Setor"> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSector(e.target.value)} /> </LargeInput>
+                    <LargeInput title="Cargo"> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setJob(e.target.value)} /> </LargeInput>
+                    <LargeInput title="Salário"> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSalary(e.target.value)} /> </LargeInput>
                     <ShortInputsDiv>
-                        <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setCpf(e.target.value)}> CPF </InputShort>
-                        <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setCtps(e.target.value)}> CTPS </InputShort>
-                        <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setAdmissionDate(e.target.value)}> Data de Admissão </InputShort>
-                        <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setBirthDate(e.target.value)}> Data de Nascimento </InputShort>
-                    </ShortInputsDiv>
-                    <InputLarge type = {"text"}  action = {(e: { target: { value: SetStateAction<string>; }; }) => setJob(e.target.value)}> Função </InputLarge>
-                    <InputLarge type = {"text"} action = {(e: { target: { value: SetStateAction<string>; }; }) => setSector(e.target.value)}> Setor </InputLarge>
-                    <InputLarge type = {"text"} action = {(e: { target: { value: SetStateAction<string>; }; }) => setSalary(e.target.value)}> Salário </InputLarge>
-                    <ShortInputsDiv>
-                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)}> País </InputShort>
-                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)}> Estado </InputShort>
-                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)}> Cidade </InputShort>
-                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)}> Bairro </InputShort>
-                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)}> Rua </InputShort>
-                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)}> Número </InputShort>
+                        <ShortInput title="CPF"> <Input mask='cpf' onBlur={(e: { target: { value: SetStateAction<string>; }; }) => setCpf(e.target.value)} /> </ShortInput>
+                        <ShortInput title="CTPS"> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCtps(e.target.value)} mask={undefined} /> </ShortInput>
+                        <ShortInput title="Data de Admissão"> <Input mask="date" onBlur={(e: { target: { value: SetStateAction<string>; }; }) => setAdmissionDate(e.target.value)} /> </ShortInput>
+                        <ShortInput title="Data de Nascimento"> <Input mask="date" onBlur={(e: { target: { value: SetStateAction<string>; }; }) => setBirthDate(e.target.value)} /> </ShortInput>
+                        <ShortInput title="CEP"> <Input mask="cep" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCep(e.target.value)} onBlur={(e) => checkCep(e)}/> </ShortInput>
+                        <ShortInput title='País'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)} /> </ShortInput>
+                        <ShortInput title='Estado'> <Input value={countryArea} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)} /> </ShortInput>
+                        <ShortInput title='Cidade'> <Input value={city} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)} /> </ShortInput>
+                        <ShortInput title='Bairro'> <Input value={neighboor} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)} /> </ShortInput>
+                        <ShortInput title='Rua'> <Input value={street} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)} /> </ShortInput>
+                        <ShortInput title='Nº do Endereço'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)} /> </ShortInput>
                     </ShortInputsDiv>
                     <Spacement />
-                    <ButtonSecondary action={() => handleSubmit()}> Cadastrar </ButtonSecondary>
+                    <ButtonSecondary onClick={(e) => {
+                        console.log(birthDate)
+                        e.preventDefault();
+                        handleSubmit()
+                    }}> Cadastrar </ButtonSecondary>
                 </OptionsWrapper>
             </Container>
         </>

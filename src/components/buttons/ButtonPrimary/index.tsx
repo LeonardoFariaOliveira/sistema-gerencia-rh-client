@@ -1,9 +1,9 @@
-import { MouseEventHandler } from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import { InputButton } from "./style";
 
-const ButtonPrimary = ({ action, children }: { action: MouseEventHandler<HTMLDivElement>, children: string }):JSX.Element => {
+const ButtonPrimary: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, ...props }) => {
     return(
-        <InputButton onClick={action}> { children } </InputButton>
+        <InputButton {...props}> { children } </InputButton>
     )
 };
 

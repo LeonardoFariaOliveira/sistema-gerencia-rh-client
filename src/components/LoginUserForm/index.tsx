@@ -64,7 +64,17 @@ const LoginUserForm = (): JSX.Element => {
             placeholder = "Senha"
             /> 
 
-            <ButtonPrimary action={() => handleSubmit()}> Enviar </ButtonPrimary>
+
+            <ButtonPrimary 
+                onClick={(e) => {
+                    e.preventDefault();
+                    handleSubmit()
+                }}
+                onKeyDownCapture={(e) => {
+                e.preventDefault();
+                if(e.key==='Enter'){ handleSubmit() }
+                }}
+            > Enviar </ButtonPrimary>
             <PassRecoveryStyled> Esqueceu a senha? </PassRecoveryStyled>
         </LoginForm>
     )
