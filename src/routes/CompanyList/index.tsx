@@ -35,18 +35,14 @@ const CompanyList = ():JSX.Element => {
       ];
 
     const response = useGetCompanies();
-    
-    async function getAllCompanies () {
-        await response.then(resolve => resolve.data).then(data => setCompanies(data.companies))
-    }
 
     const toggleModal = () => {
         setShowModal(!showModal)
     }
 
     useEffect(() => {
-      getAllCompanies();
-    }, [toggleModal])
+        response.then(resolve => resolve.data).then(data => setCompanies(data.companies))
+    }, [showModal])
 
 
 

@@ -95,6 +95,7 @@ export async function newAdmin (name: string, password: string){
   city: string,
   neighboor: string,
   street: string,
+  companyId: Promise<string> | null,
   number: string,
   photoUrl?: string,
 ){
@@ -131,7 +132,7 @@ export async function newAdmin (name: string, password: string){
         salary: salary,
         admissionDate: admissionDate,
         birthDate: birthDate,
-        companyId: '281d171b-fb1e-4da4-881c-dea27a332f59',
+        companyId: companyId,
         address:{
           country: country,
           countryArea: countryArea,
@@ -152,24 +153,13 @@ export async function newAdmin (name: string, password: string){
   }
   
   export async function loginAdminFunction(user: string, password: string) {
-    const response = 
-    await axios.post("http://localhost:3333/v1/auth/login", {
+    console.log("a")
+    const response = await axios.post("http://localhost:3333/v1/auth/login", {
       user:user,
       password:password,
     })
-  //   await fetch("http://localhost:3333/v1/auth/login", {
-  //     method: "POST",
-  //     headers: {
-  //     "Content-type": "application/json; charset=UTF-8",
-  //   },
-  //   body: JSON.stringify({
-  //     user: user,
-  //     password: password,
-  //   }),
-  // });
-
-  const token = response.data.jwtToken;
-  return token;
+  console.log(response)
+  return response.data
 }
 
 export async function loginUserFunction(email: string, password: string) {
@@ -179,15 +169,14 @@ export async function loginUserFunction(email: string, password: string) {
       email:email,
       password:password,
     })
-    const token = response.data.jwtToken;
-    return token;
+    return response.data;
 }
 
 
-export async function useGetEmployees () {
+export async function useGetEmployees (idUser:Promise<string> | null) {
   const userContext = useContext(AuthUserContext)
   
-  const response = await axios.get('http://localhost:3333/v1/employees/281d171b-fb1e-4da4-881c-dea27a332f59',{
+  const response = await axios.get(`http://localhost:3333/v1/employees/${idUser}`,{
     headers: {
       Authentication: `Bearer ${userContext.tokenUser}`,
   }
@@ -203,6 +192,6 @@ export async function useGetCompanies () {
       Authentication: `Bearer ${adminContext.token}`,
   }
 })
-    return response;
+    return response.data;
   }
 

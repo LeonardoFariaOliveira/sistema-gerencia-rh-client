@@ -1,7 +1,7 @@
 import { SetStateAction, useState, useContext } from 'react';
 import { AuthUserContext } from '../../contexts/AuthUserContext';
 import ButtonPrimary from '../buttons/ButtonPrimary';
-import { ExecepionArea } from './style';
+import { ExcepionArea } from './style';
 
 interface ExceptionMessageProps{
     status:string;
@@ -13,9 +13,9 @@ const ExceptionMessage = ({status, message}:ExceptionMessageProps): JSX.Element 
 
     return(      
         <>
-            <ExecepionArea>
+            <ExcepionArea>
                 <h1>{message}</h1>
-            </ExecepionArea>
+            </ExcepionArea>
         </>
     )
 };

@@ -6,6 +6,7 @@ import ButtonSecondary from '../buttons/ButtonSecondary';
 import InputLarge from '../inputs/InputLarge';
 import InputShort from '../inputs/IntuprShort';
 import {Container, Header, OptionsWrapper, CloseBtn, ShortInputsDiv, Spacement } from './style'
+import ExceptionMessage from '../ExceptionMessage';
 
 interface ModalInterface {
     toggleModal: () => void;
@@ -28,44 +29,70 @@ const ModalNewEmployee = ({ toggleModal, showModal }: ModalInterface): JSX.Eleme
     const [neighboor, setNeighboor] = useState('')
     const [street, setStreet] = useState('')
     const [number, setNumber] = useState('')
+    const [hasError, setHasError] = useState(false);
+    const [statusErrorProps, setStatusErrorProps] = useState("");
+    const [messageErrorProps, setMessageErrorProps] = useState("");
 
     const userContext = useContext(AuthUserContext)
 
+    const handleSubmit = async() => {
+        try{
+            await newEmployee(userContext.tokenUser, name, cpf, ctps, job, sector, salary, admissionDate, birthDate, country, countryArea, city, neighboor, street, userContext.idUser, number)
+            toggleModal()  
+        }catch(e:any){
+            console.log(e)
+            setStatusErrorProps(e.response.data.statusCode)
+            setMessageErrorProps(
+                e.response.data.statusCode === 401
+                ?  
+                e.response.data.message 
+                : 
+                e.response.data.message[0]
+            )
+            setHasError(true)
+            setTimeout(() => setHasError(false), 4000)
+        }
+    }
+
 
     return(
-        <Container showModal={ showModal }>
-            <Header> Cadastre um funcionário
-            <CloseBtn onClick={toggleModal}> <IoMdClose /> </CloseBtn>
-            </Header>
+        <>
+            {
+                hasError ?
+            (<ExceptionMessage status={statusErrorProps} message={messageErrorProps}/>)
+                :
+                null
+            }
+            <Container showModal={ showModal }>
+                <Header> Cadastre um funcionário
+                <CloseBtn onClick={toggleModal}> <IoMdClose /> </CloseBtn>
+                </Header>
 
-            <OptionsWrapper>
+                <OptionsWrapper>
 
-                <InputLarge type = {"text"}  action = {(e: { target: { value: SetStateAction<string>; }; }) => setName(e.target.value)}> Nome Completo </InputLarge>
-                <ShortInputsDiv>
-                    <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setCpf(e.target.value)}> CPF </InputShort>
-                    <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setCtps(e.target.value)}> CTPS </InputShort>
-                    <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setAdmissionDate(e.target.value)}> Data de Admissão </InputShort>
-                    <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setBirthDate(e.target.value)}> Data de Nascimento </InputShort>
-                </ShortInputsDiv>
-                <InputLarge type = {"text"}  action = {(e: { target: { value: SetStateAction<string>; }; }) => setJob(e.target.value)}> Função </InputLarge>
-                <InputLarge type = {"text"} action = {(e: { target: { value: SetStateAction<string>; }; }) => setSector(e.target.value)}> Setor </InputLarge>
-                <InputLarge type = {"text"} action = {(e: { target: { value: SetStateAction<string>; }; }) => setSalary(e.target.value)}> Salário </InputLarge>
-                <ShortInputsDiv>
-                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)}> País </InputShort>
-                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)}> Estado </InputShort>
-                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)}> Cidade </InputShort>
-                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)}> Bairro </InputShort>
-                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)}> Rua </InputShort>
-                    <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)}> Número </InputShort>
-                </ShortInputsDiv>
-                <Spacement />
-                <ButtonSecondary action={() => {
-                    toggleModal()
-                    newEmployee(userContext.tokenUser, name, cpf, ctps, job, sector, salary, admissionDate, birthDate, country, countryArea, city, neighboor, street, number)
-                
-                }}> Cadastrar </ButtonSecondary>
-            </OptionsWrapper>
-        </Container>
+                    <InputLarge type = {"text"}  action = {(e: { target: { value: SetStateAction<string>; }; }) => setName(e.target.value)}> Nome Completo </InputLarge>
+                    <ShortInputsDiv>
+                        <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setCpf(e.target.value)}> CPF </InputShort>
+                        <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setCtps(e.target.value)}> CTPS </InputShort>
+                        <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setAdmissionDate(e.target.value)}> Data de Admissão </InputShort>
+                        <InputShort type ={ "text" } action = {(e: { target: { value: SetStateAction<string>; }; }) => setBirthDate(e.target.value)}> Data de Nascimento </InputShort>
+                    </ShortInputsDiv>
+                    <InputLarge type = {"text"}  action = {(e: { target: { value: SetStateAction<string>; }; }) => setJob(e.target.value)}> Função </InputLarge>
+                    <InputLarge type = {"text"} action = {(e: { target: { value: SetStateAction<string>; }; }) => setSector(e.target.value)}> Setor </InputLarge>
+                    <InputLarge type = {"text"} action = {(e: { target: { value: SetStateAction<string>; }; }) => setSalary(e.target.value)}> Salário </InputLarge>
+                    <ShortInputsDiv>
+                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)}> País </InputShort>
+                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)}> Estado </InputShort>
+                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)}> Cidade </InputShort>
+                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)}> Bairro </InputShort>
+                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)}> Rua </InputShort>
+                        <InputShort type ={ "text" }  action = {(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)}> Número </InputShort>
+                    </ShortInputsDiv>
+                    <Spacement />
+                    <ButtonSecondary action={() => handleSubmit()}> Cadastrar </ButtonSecondary>
+                </OptionsWrapper>
+            </Container>
+        </>
     )
 };
 

@@ -17,22 +17,17 @@ const EmployeeList = ():JSX.Element => {
     const [hasAlreadyLoaded, setHasAlreadyLoaded] = useState<boolean>(false)
     const [showModal, setShowModal] = useState<boolean>(false)
     const [employees, setEmployees] = useState<EmployeeInfo[]>([]);
-    
-    const response = useGetEmployees();
+
+    const response = useGetEmployees(userContext.idUser);
 
 
     const toggleModal = () => {
         setShowModal(!showModal)
     }
     
-    async function getAllEmployees () {
-        await response.then(resolve => resolve.data).then(data => setEmployees(data.data.employees))
-    }
-
     useEffect(() => {
-        getAllEmployees();
-        console.log(employees.length)
-    }, [employees.length])
+        response.then(resolve => resolve.data).then(data => setEmployees(data.data.employees))
+    }, [showModal])
     
 
     interface EmployeeInfo {

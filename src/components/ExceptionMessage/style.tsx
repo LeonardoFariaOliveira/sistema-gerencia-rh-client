@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ExecepionArea = styled.div`
+export const ExcepionArea = styled.div`
 
     position: fixed;
     top: 0;
@@ -9,7 +9,7 @@ export const ExecepionArea = styled.div`
     height: 100px;
     color: white;
     background-color: #ea868f;
-    z-index: 99;
+    z-index: 99999;
     display: flex;
     border-radius: 8px;
     align-items: center;

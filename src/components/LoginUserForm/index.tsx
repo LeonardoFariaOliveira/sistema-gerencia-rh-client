@@ -22,14 +22,19 @@ const LoginUserForm = (): JSX.Element => {
 
     const handleSubmit = async() => {
         try{
-            console.log("aqui")
             await userContext.loginUser(email, password)
         }catch(e:any){
-            console.log("error")
             console.log(e)
             setStatusErrorProps(e.response.data.statusCode)
-            setMessageErrorProps(e.response.data.message[0])
+            setMessageErrorProps(
+                e.response.data.statusCode === 403
+                ?  
+                e.response.data.message 
+                : 
+                e.response.data.message[0]
+            )
             setHasError(true)
+            setTimeout(() => setHasError(false), 4000)
         }
     }
 

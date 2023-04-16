@@ -2,6 +2,7 @@ import { SetStateAction, useContext, useState } from 'react';
 import ButtonPrimary from '../buttons/ButtonPrimary';
 import { LoginForm, Title, InputStyled } from './style';
 import { AuthAdminContext } from '../../contexts/AuthAdminContext';
+import ExceptionMessage from '../ExceptionMessage';
 
 const LoginAdminForm = (): JSX.Element => {
 
@@ -9,9 +10,38 @@ const LoginAdminForm = (): JSX.Element => {
 
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+    const [hasError, setHasError] = useState(false);
+    const [statusErrorProps, setStatusErrorProps] = useState("");
+    const [messageErrorProps, setMessageErrorProps] = useState("");
+
+
+    const handleSubmit = async() => {
+
+        try{
+            await adminContext.login(user, password)
+        }catch(e:any){
+            console.log(e)
+            setStatusErrorProps(e.response.data.statusCode)
+            setMessageErrorProps(
+                e.response.data.statusCode === 403
+                ?  
+                e.response.data.message 
+                : 
+                e.response.data.message[0]
+            )
+            setHasError(true)
+            setTimeout(() => setHasError(false), 4000)
+        }
+    }
 
     return(      
         <LoginForm>
+            {
+            hasError ?
+            (<ExceptionMessage status={statusErrorProps} message={messageErrorProps}/>)
+                :
+                null
+            }
             <Title onClick={() => console.log('login')}> Login </Title>
             <InputStyled 
             type="text"
@@ -27,7 +57,7 @@ const LoginAdminForm = (): JSX.Element => {
             placeholder = "Senha"
             /> 
 
-            <ButtonPrimary action={() =>  adminContext.login(user, password)}>Acessar</ButtonPrimary>
+            <ButtonPrimary action={() =>  handleSubmit()}>Acessar</ButtonPrimary>
         </LoginForm>
     )
 };
