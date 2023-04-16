@@ -4,6 +4,7 @@ import { AuthAdminContext } from '../../contexts/AuthAdminContext';
 import { newCompany } from '../../hooks/useApi';
 import ButtonSecondary from '../buttons/ButtonSecondary';
 import {Container, Header, OptionsWrapper, CloseBtn, ShortInputsDiv, Spacement } from './style'
+import ExceptionMessage from '../ExceptionMessage';
 import ShortInput from '../inputs/ShortInput';
 import Input from '../inputs/Input';
 
@@ -27,6 +28,9 @@ const ModalNewCompany = ({ toggleModal, showModal }: ModalInterface): JSX.Elemen
     const [neighboor, setNeighboor] = useState<string>('')
     const [street, setStreet] = useState<string>('')
     const [number, setNumber] = useState<string>('')
+    const [hasError, setHasError] = useState(false);
+    const [statusErrorProps, setStatusErrorProps] = useState("");
+    const [messageErrorProps, setMessageErrorProps] = useState("");
     const [cep, setCep] = useState<string>('')
 
     const admContext = useContext(AuthAdminContext)
@@ -46,38 +50,65 @@ const ModalNewCompany = ({ toggleModal, showModal }: ModalInterface): JSX.Elemen
         }
     }
 
-    return(
-        <Container showModal={ showModal }>
-            <Header> Cadastre uma Empresa
-            <CloseBtn onClick={toggleModal}> <IoMdClose /> </CloseBtn>
-            </Header>
+    const handleSubmit = async() => {
+        try{
+            await newCompany(admContext.token, email, password, corporateName, popularName, cnpj, phoneNumber, country, countryArea, city, neighboor, street, number,)
+            toggleModal()
+        }catch(e:any){
+            console.log(e)
+            setStatusErrorProps(e.response.data.statusCode)
+            setMessageErrorProps(
+                e.response.data.statusCode === 401
+                ?  
+                e.response.data.message 
+                : 
+                e.response.data.message[0]
+            )
+            setHasError(true)
+            setTimeout(() => setHasError(false), 4000)
+        }
+    }
 
-            <OptionsWrapper>
-                <ShortInputsDiv>
-                    <ShortInput title='Razão Social'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCorporateName(e.target.value)} /> </ShortInput>
-                    <ShortInput title='Nome Popular'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPopularName(e.target.value)} /> </ShortInput>
-                    <ShortInput title="CNPJ"> <Input mask='cnpj' onBlur={(e: { target: { value: SetStateAction<string>; }; }) => setCnpj(e.target.value)} /> </ShortInput>
-                </ShortInputsDiv>
-                <ShortInput title='E-mail'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)} /> </ShortInput>
-                <ShortInputsDiv>
-                <ShortInput title='Senha'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)} /> </ShortInput>
-                <ShortInput title='Confirma a Senha'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSecondPassword(e.target.value)} /> </ShortInput>
-                <ShortInput title='Número para Contato'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPhoneNumber(e.target.value)} /> </ShortInput>
-                <ShortInput title='País'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)} /> </ShortInput>
-                <ShortInput title="CEP"> <Input mask="cep" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCep(e.target.value)} onBlur={(e) => checkCep(e)}/> </ShortInput>
-                <ShortInput title='Estado'> <Input value={countryArea} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)} /> </ShortInput>
-                <ShortInput title='Cidade'> <Input value={city} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)} /> </ShortInput>
-                <ShortInput title='Bairro'> <Input value={neighboor} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)} /> </ShortInput>
-                <ShortInput title='Rua'> <Input value={street} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)} /> </ShortInput>
-                <ShortInput title='Nº do Endereço'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)} /> </ShortInput>
-                </ShortInputsDiv>
-                <Spacement />
-                <ButtonSecondary onClick={(e) => {
-                    e.preventDefault();
-                    newCompany(admContext.token, email, password, corporateName, popularName, cnpj, phoneNumber, country, countryArea, city, neighboor, street, number,)}
-                }> Cadastrar </ButtonSecondary>
-            </OptionsWrapper>
-        </Container>
+    return(
+        <>
+            {
+                hasError ?
+            (<ExceptionMessage status={statusErrorProps} message={messageErrorProps}/>)
+                :
+                null
+            }
+            <Container showModal={ showModal }>
+                <Header> Cadastre uma Empresa
+                <CloseBtn onClick={toggleModal}> <IoMdClose /> </CloseBtn>
+                </Header>
+
+                <OptionsWrapper>
+                    <ShortInputsDiv>
+                        <ShortInput title='Razão Social'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCorporateName(e.target.value)} /> </ShortInput>
+                        <ShortInput title='Nome Popular'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPopularName(e.target.value)} /> </ShortInput>
+                        <ShortInput title="CNPJ"> <Input mask='cnpj' onBlur={(e: { target: { value: SetStateAction<string>; }; }) => setCnpj(e.target.value)} /> </ShortInput>
+                    </ShortInputsDiv>
+                    <ShortInput title='E-mail'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)} /> </ShortInput>
+                    <ShortInputsDiv>
+                    <ShortInput title='Senha'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Confirma a Senha'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSecondPassword(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Número para Contato'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPhoneNumber(e.target.value)} /> </ShortInput>
+                    <ShortInput title='País'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)} /> </ShortInput>
+                    <ShortInput title="CEP"> <Input mask="cep" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCep(e.target.value)} onBlur={(e) => checkCep(e)}/> </ShortInput>
+                    <ShortInput title='Estado'> <Input value={countryArea} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Cidade'> <Input value={city} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCity(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Bairro'> <Input value={neighboor} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setNeighboor(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Rua'> <Input value={street} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setStreet(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Nº do Endereço'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setNumber(e.target.value)} /> </ShortInput>
+                    </ShortInputsDiv>
+                    <Spacement />
+                    <ButtonSecondary onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmit()    
+                    }}> Cadastrar </ButtonSecondary>
+                </OptionsWrapper>
+            </Container>
+        </>
     )
 };
 

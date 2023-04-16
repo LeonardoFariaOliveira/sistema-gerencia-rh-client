@@ -2,6 +2,13 @@ import { SetStateAction, useState, useContext } from 'react';
 import { AuthUserContext } from '../../contexts/AuthUserContext';
 import ButtonPrimary from '../buttons/ButtonPrimary';
 import { LoginForm, Title, InputStyled, PassRecoveryStyled } from './style';
+import ExceptionMessage from '../ExceptionMessage';
+
+
+export interface ErrorsProps{
+    status:string
+    message:string
+}
 
 const LoginUserForm = (): JSX.Element => {
 
@@ -9,9 +16,39 @@ const LoginUserForm = (): JSX.Element => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [hasError, setHasError] = useState(false);
+    const [statusErrorProps, setStatusErrorProps] = useState("");
+    const [messageErrorProps, setMessageErrorProps] = useState("");
+
+    const handleSubmit = async() => {
+        try{
+            await userContext.loginUser(email, password)
+        }catch(e:any){
+            console.log(e)
+            setStatusErrorProps(e.response.data.statusCode)
+            setMessageErrorProps(
+                e.response.data.statusCode === 403
+                ?  
+                e.response.data.message 
+                : 
+                e.response.data.message[0]
+            )
+            setHasError(true)
+            setTimeout(() => setHasError(false), 4000)
+        }
+    }
+
+ 
+
 
     return(      
         <LoginForm>
+            {
+                hasError ?
+            (<ExceptionMessage status={statusErrorProps} message={messageErrorProps}/>)
+                :
+                null
+            }
             <Title> Login </Title>
             <InputStyled 
             type="text"
@@ -27,19 +64,17 @@ const LoginUserForm = (): JSX.Element => {
             placeholder = "Senha"
             /> 
 
-            <ButtonPrimary 
-                
-                onClick={(e) => {
-                e.preventDefault();
-                userContext.loginUser(email, password)
-                }}
 
-                onKeyPress={(e) => {
-                e.preventDefault();
-                if(e.key==='Enter'){ userContext.loginUser(email, password) }
+            <ButtonPrimary 
+                onClick={(e) => {
+                    e.preventDefault();
+                    handleSubmit()
                 }}
-                
-                > Enviar </ButtonPrimary>
+                onKeyDownCapture={(e) => {
+                e.preventDefault();
+                if(e.key==='Enter'){ handleSubmit() }
+                }}
+            > Enviar </ButtonPrimary>
             <PassRecoveryStyled> Esqueceu a senha? </PassRecoveryStyled>
         </LoginForm>
     )

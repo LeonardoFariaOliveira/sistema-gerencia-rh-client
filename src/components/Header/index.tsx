@@ -10,10 +10,10 @@ const Header = ({ name, user }: HeaderProps): JSX.Element => {
     return(
         <Container>
             <Name> { name } </Name>
-            <div>
+            {/* <div>
                 <Logged> { user } logado </Logged>
                 <img src={ userPicture } alt='user' />
-            </div>
+            </div> */}
         </Container>
     )
 };

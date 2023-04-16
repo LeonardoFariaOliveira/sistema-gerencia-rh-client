@@ -1,8 +1,9 @@
 import { createContext } from "react";
 
 interface AuthAdminContextInterface{
-    token: string | null;
-    login: (user: string, password: string) => void;
+    token: Promise<string> | null;
+    name: Promise<string> | null;
+    login: (user: string, password: string) => Promise<void>;
 }
 
 export const AuthAdminContext = createContext<AuthAdminContextInterface>(null!)

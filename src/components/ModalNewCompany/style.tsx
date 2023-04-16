@@ -13,7 +13,7 @@ export const Container = styled.div<any>`
     top: 20%;
     transform: translate(${({ showModal }) => showModal ? '-50% , 0' : '-50% , -200%'});
     transition: all ease .8s;
-    z-index: 99999;
+    z-index: 99998;
 
 `;
 
