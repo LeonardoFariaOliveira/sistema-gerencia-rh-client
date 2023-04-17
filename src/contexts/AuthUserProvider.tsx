@@ -9,14 +9,16 @@ export const AuthUserProvider = ({ children }: {children: JSX.Element}) => {
     const [idUser, setIdUser] = useState<Promise<string> | null>(null);
 
     const loginUser = async (user: string, password: string) => {
-       // try{
+      // try{
             const response = await loginUserFunction(user, password);
             setTokenUser(response.token);
             setIdUser(response.id);
             setPopularNameUser(response.popularName);
+            localStorage.setItem("token", response.token)
+            localStorage.setItem("id", response.id)
             // console.log(tokenUser)
         // }catch(e){
-        //     throw new Error("A")
+        //     localStorage.clear()
         // }
     }
 

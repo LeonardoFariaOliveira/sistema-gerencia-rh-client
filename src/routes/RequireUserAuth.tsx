@@ -9,18 +9,59 @@ const RequireUserAuth = (): JSX.Element => {
 
     const userContext = useContext(AuthUserContext)
 
+
     if(userContext.tokenUser){
+
+        // if(userContext.tokenUser){
+        console.log("Contexto")
         return (
             <>
-            <Header name=" S.A Suplementos " user=" usuário " />
-            <Menu />
             <EmployeeList />
             </>
         )
-    }else {
-        return(
-            <LoginUser />
+
+        
+        // else {
+        //     return(
+        //         <>
+        //             <LoginUser />
+        //             {
+                        
+        //                 console.log("Segundo else: "+localStorage.getItem("token"))
+        //             }
+        //         </>
+                
+        //     )
+        // }
+    }
+    else if(localStorage.getItem("token")){
+        return (
+            <>
+            {
+                console.log("Storage")
+            }
+            <EmployeeList />
+            </>
         )
     }
+    else{
+
+        return (
+            
+            <>
+                <LoginUser />
+                {
+                    console.log("Zerado "+localStorage.getItem("token"))
+                }
+            </>
+        )
+
+    }
+    
+
+
+
+
+    
 };
 export default RequireUserAuth;

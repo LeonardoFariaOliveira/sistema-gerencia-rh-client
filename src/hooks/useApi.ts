@@ -169,29 +169,50 @@ export async function loginUserFunction(email: string, password: string) {
       email:email,
       password:password,
     })
+    console.log(response)
     return response.data;
 }
 
 
-export async function useGetEmployees (idUser:Promise<string> | null) {
-  const userContext = useContext(AuthUserContext)
-  
-  const response = await axios.get(`http://localhost:3333/v1/employees/${idUser}`,{
-    headers: {
-      Authentication: `Bearer ${userContext.tokenUser}`,
-  }
-})
+export async function useGetEmployees (idUser:string | Promise<string> | null) {
+  try{
+    const userContext = useContext(AuthUserContext)
+    const response = await axios.get(`http://localhost:3333/v1/employees/${idUser}`,{
+      headers: {
+        Authentication: `Bearer ${userContext.tokenUser ?? localStorage.getItem("token")}`,
+      }
+    })
     return response;
+  }catch(e:any){
+    return{
+      status: e.response.status,
+      data:{
+        data:{
+          employees:[]
+        }
+      }
+    }
   }
 
+}
+
 export async function useGetCompanies () {
-  const adminContext = useContext(AuthAdminContext)
-  
-  const response = await axios.get('http://localhost:3333/v1/companies',{
-    headers: {
-      Authentication: `Bearer ${adminContext.token}`,
+  try{
+    const adminContext = useContext(AuthAdminContext)
+    const response = await axios.get('http://localhost:3333/v1/companies',{
+      headers: {
+        Authentication: `Bearer ${adminContext.token ?? localStorage.getItem("token")}`,
+      }
+    })
+    return response;
+  }catch(e:any){
+    return{
+      status: e.response.status,
+      data:{
+        companies:[]
+      }
+    }
   }
-})
-    return response.data;
-  }
+
+}
 

@@ -12,12 +12,18 @@ const RequireAdminAuth = (): JSX.Element => {
     if(adminContext.token){
         return (
             <>
-            <Header name=" S.A Suplementos " user=" usuário " />
-            <Menu />
             <CompanyList />
             </>
         )
-    }else {
+    }
+    else if(localStorage.getItem("token")){
+        return (
+            <>
+            <CompanyList />
+            </>
+        )
+    }
+    else {
         return(
             <LoginAdm />
         )

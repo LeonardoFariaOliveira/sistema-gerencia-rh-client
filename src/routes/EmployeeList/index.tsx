@@ -15,8 +15,8 @@ const EmployeeList = ():JSX.Element => {
     const userContext = useContext(AuthUserContext)
     const [showModal, setShowModal] = useState<boolean>(false)
     const [employees, setEmployees] = useState<EmployeeInfo[]>([]);
-
-    const response = useGetEmployees(userContext.idUser);
+    const id = userContext.idUser ?? localStorage.getItem("id")
+    const response = useGetEmployees(id);
 
 
     const toggleModal = () => {
@@ -24,7 +24,12 @@ const EmployeeList = ():JSX.Element => {
     }
     
     useEffect(() => {
-        response.then(resolve => resolve.data).then(data => setEmployees(data.data.employees))
+        
+        response.then(resolve => {
+            if(resolve.status === 401)
+                localStorage.clear()
+            return resolve.data
+        }).then(data => setEmployees(data.data.employees))
     }, [showModal])
     
 
@@ -47,9 +52,8 @@ const EmployeeList = ():JSX.Element => {
         { id: 6, content: 'Salário' },
       ];
 
-
-    
     if(userContext.tokenUser){
+        
         return(
             <>
             <Menu />
@@ -69,9 +73,38 @@ const EmployeeList = ():JSX.Element => {
             <BgDisable toggleModal={toggleModal} showModal={showModal}/>
             </>
         )
-    }else{
+        
+    }
+    else if(localStorage.getItem("token")){
+        return(
+            <>
+            <Menu />
+            <Header name="Cyberswitch" user="admin"/>
+            <BaseScreen>
+            <SearchBar />
+            <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
+                <>
+                {employees.map((item) => (
+                <ListLineEmployees name={item.name} employee={ item }/>
+                ))}
+                </> 
+            </TableWrapper>
+            </BaseScreen>
+    
+            <ModalNewEmployee toggleModal={toggleModal} showModal={showModal} />
+            <BgDisable toggleModal={toggleModal} showModal={showModal}/>
+            </>
+        )
+    }
+    else{
         return (
-            <Navigate to={'/'}/>
+            <>
+                {
+                    
+                    localStorage.clear()
+                }
+                <Navigate to={'/user'}/>
+            </>
         )
     }
 };

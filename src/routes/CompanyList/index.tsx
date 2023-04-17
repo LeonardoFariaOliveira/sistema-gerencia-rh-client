@@ -41,7 +41,12 @@ const CompanyList = ():JSX.Element => {
     }
 
     useEffect(() => {
-        response.then(resolve => resolve.data).then(data => setCompanies(data.companies))
+        response.then(resolve => {
+            console.log(resolve)
+            if(resolve.status === 401)
+            localStorage.clear()
+            return resolve.data
+        }).then(data => setCompanies(data.companies))
     }, [showModal])
 
 
@@ -66,10 +71,39 @@ const CompanyList = ():JSX.Element => {
             <BgDisable toggleModal={toggleModal} showModal={showModal}/>
             </> 
             
-            )
-    }else{
+        )
+    }
+    else if(localStorage.getItem("token")){
+        return(
+            <>
+            <Menu />
+            <Header name="Leonardo Faria" user="admin"/>
+            <BaseScreen>
+            <SearchBar />
+            <TableWrapper text="Lista de empresas cadastradas" items={items} toggleModal={toggleModal}>
+            <>
+            {companies.map((item) => (
+            <ListLineCompanies name={item.popularName} company={ item }/>
+            ))}
+            </> 
+            </TableWrapper>
+            </BaseScreen>
+
+            <ModalNewCompany toggleModal={toggleModal} showModal={showModal} />
+            <BgDisable toggleModal={toggleModal} showModal={showModal}/>
+            </> 
+            
+        )
+    }
+    else{
         return (
-            <Navigate to={'/'}/>
+            <>
+                {
+                    
+                    localStorage.clear()
+                }
+                <Navigate to={'/adm'}/>
+            </>
         )
     }
 
