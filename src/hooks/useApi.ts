@@ -18,7 +18,7 @@ export async function newAdmin (name: string, password: string){
   }
 
   export async function newCompany (
-  token: Promise<string> | null,
+  token: Promise<string> | null | string,
   email:string,
   password: string,
   corporateName: string,
@@ -81,7 +81,7 @@ export async function newAdmin (name: string, password: string){
   }
 
   export async function newEmployee (
-  tokenUser: Promise<string> | null,
+  tokenUser: Promise<string> | null | string,
   name:string,
   cpf: string,
   ctps: string,
@@ -175,13 +175,16 @@ export async function loginUserFunction(email: string, password: string) {
 
 
 export async function useGetEmployees (idUser:string | Promise<string> | null) {
+  
+  const userContext = useContext(AuthUserContext)
   try{
-    const userContext = useContext(AuthUserContext)
+    console.log(userContext.tokenUser ?? localStorage.getItem("tokenUser"))
     const response = await axios.get(`http://localhost:3333/v1/employees/${idUser}`,{
       headers: {
-        Authentication: `Bearer ${userContext.tokenUser ?? localStorage.getItem("token")}`,
+        Authentication: `Bearer ${userContext.tokenUser ?? localStorage.getItem("tokenUser")}`,
       }
     })
+    console.log(response)
     return response;
   }catch(e:any){
     return{
@@ -197,8 +200,10 @@ export async function useGetEmployees (idUser:string | Promise<string> | null) {
 }
 
 export async function useGetCompanies () {
+  const adminContext = useContext(AuthAdminContext)
+    
   try{
-    const adminContext = useContext(AuthAdminContext)
+    //const adminContext = useContext(AuthAdminContext)
     const response = await axios.get('http://localhost:3333/v1/companies',{
       headers: {
         Authentication: `Bearer ${adminContext.token ?? localStorage.getItem("token")}`,

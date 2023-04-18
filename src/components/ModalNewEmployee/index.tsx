@@ -56,7 +56,7 @@ const ModalNewEmployee = ({ toggleModal, showModal }: ModalInterface): JSX.Eleme
 
     const handleSubmit = async() => {
         try{
-            await newEmployee(userContext.tokenUser, name, cpf, ctps, job, sector, salary, admissionDate, birthDate, country, countryArea, city, neighboor, street, userContext.idUser, number)
+            await newEmployee(userContext.tokenUser ?? localStorage.getItem("tokenUser"), name, cpf, ctps, job, sector, salary, admissionDate, birthDate, country, countryArea, city, neighboor, street, userContext.idUser, number)
             toggleModal()  
         }catch(e:any){
             console.log(e)

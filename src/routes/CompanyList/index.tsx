@@ -12,6 +12,7 @@ import { AuthAdminContext } from "../../contexts/AuthAdminContext";
 import { useGetCompanies } from "../../hooks/useApi";
 import ListLineEmployees from "../../components/ListLineEmployees";
 import ListLineCompanies from "../../components/ListLineCompanies";
+import LoginAdm from "../LoginAdm";
 
 const CompanyList = ():JSX.Element => {
     
@@ -99,10 +100,10 @@ const CompanyList = ():JSX.Element => {
         return (
             <>
                 {
-                    
                     localStorage.clear()
                 }
-                <Navigate to={'/adm'}/>
+                {/* <Navigate to={'/adm'}/> */}
+                <LoginAdm />
             </>
         )
     }

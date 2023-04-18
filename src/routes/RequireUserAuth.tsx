@@ -34,7 +34,7 @@ const RequireUserAuth = (): JSX.Element => {
         //     )
         // }
     }
-    else if(localStorage.getItem("token")){
+    else if(localStorage.getItem("tokenUser")){
         return (
             <>
             {
@@ -51,7 +51,7 @@ const RequireUserAuth = (): JSX.Element => {
             <>
                 <LoginUser />
                 {
-                    console.log("Zerado "+localStorage.getItem("token"))
+                    console.log("Zerado "+localStorage.getItem("tokenUser"))
                 }
             </>
         )

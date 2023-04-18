@@ -10,12 +10,14 @@ import Header from "../../components/Header";
 import { Navigate } from "react-router-dom";
 import { AuthUserContext } from "../../contexts/AuthUserContext";
 import ListLineEmployees from "../../components/ListLineEmployees";
+import LoginUser from "../LoginUser";
 const EmployeeList = ():JSX.Element => {
     
     const userContext = useContext(AuthUserContext)
     const [showModal, setShowModal] = useState<boolean>(false)
     const [employees, setEmployees] = useState<EmployeeInfo[]>([]);
     const id = userContext.idUser ?? localStorage.getItem("id")
+    console.log(id)
     const response = useGetEmployees(id);
 
 
@@ -24,10 +26,12 @@ const EmployeeList = ():JSX.Element => {
     }
     
     useEffect(() => {
-        
+        console.log("opa")
         response.then(resolve => {
+            console.log(resolve)
             if(resolve.status === 401)
                 localStorage.clear()
+            console.log(resolve.data.data)
             return resolve.data
         }).then(data => setEmployees(data.data.employees))
     }, [showModal])
@@ -75,7 +79,7 @@ const EmployeeList = ():JSX.Element => {
         )
         
     }
-    else if(localStorage.getItem("token")){
+    else if(localStorage.getItem("tokenUser")){
         return(
             <>
             <Menu />
@@ -103,7 +107,8 @@ const EmployeeList = ():JSX.Element => {
                     
                     localStorage.clear()
                 }
-                <Navigate to={'/user'}/>
+                {/* <Navigate to={'/user'}/> */}
+                <LoginUser />
             </>
         )
     }

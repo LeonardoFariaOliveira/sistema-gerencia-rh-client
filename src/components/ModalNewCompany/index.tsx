@@ -52,7 +52,7 @@ const ModalNewCompany = ({ toggleModal, showModal }: ModalInterface): JSX.Elemen
 
     const handleSubmit = async() => {
         try{
-            await newCompany(admContext.token, email, password, corporateName, popularName, cnpj, phoneNumber, country, countryArea, city, neighboor, street, number,)
+            await newCompany(admContext.token ?? localStorage.getItem("token"), email, password, corporateName, popularName, cnpj, phoneNumber, country, countryArea, city, neighboor, street, number)
             toggleModal()
         }catch(e:any){
             console.log(e)
@@ -90,8 +90,8 @@ const ModalNewCompany = ({ toggleModal, showModal }: ModalInterface): JSX.Elemen
                     </ShortInputsDiv>
                     <ShortInput title='E-mail'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)} /> </ShortInput>
                     <ShortInputsDiv>
-                    <ShortInput title='Senha'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)} /> </ShortInput>
-                    <ShortInput title='Confirma a Senha'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSecondPassword(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Senha'> <Input type="password" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Confirma a Senha'> <Input type="password" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSecondPassword(e.target.value)} /> </ShortInput>
                     <ShortInput title='Número para Contato'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPhoneNumber(e.target.value)} /> </ShortInput>
                     <ShortInput title='País'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)} /> </ShortInput>
                     <ShortInput title="CEP"> <Input mask="cep" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCep(e.target.value)} onBlur={(e) => checkCep(e)}/> </ShortInput>
