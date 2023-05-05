@@ -1,13 +1,13 @@
 import { SetStateAction, useContext, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { AuthUserContext } from '../../contexts/AuthUserContext';
-import { newEmployee } from '../../hooks/useApi';
-import ButtonSecondary from '../buttons/ButtonSecondary';
+import { AuthUserContext } from '../../../contexts/AuthUserContext';
+import { newEmployee } from '../../../hooks/useApi';
+import ButtonSecondary from '../../buttons/ButtonSecondary';
 import {Container, Header, OptionsWrapper, CloseBtn, ShortInputsDiv, Spacement } from './style'
-import ExceptionMessage from '../ExceptionMessage';
-import ShortInput from '../inputs/ShortInput';
-import Input from '../inputs/Input';
-import LargeInput from '../inputs/LargeInput';
+import ExceptionMessage from '../../ExceptionMessage';
+import ShortInput from '../../inputs/ShortInput';
+import Input from '../../inputs/Input';
+import LargeInput from '../../inputs/LargeInput';
 import { useFormAction } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 

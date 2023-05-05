@@ -30,6 +30,7 @@ export const Name = styled.p`
 
     font-size: 32px;
     color: ${({ theme }) => theme.text.primary};
+    cursor: pointer;
 
 `;
 

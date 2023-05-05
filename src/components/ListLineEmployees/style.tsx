@@ -47,3 +47,27 @@ export const Item = styled.li`
     padding: 16px;
 
 `;
+
+export const IconDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const Remove = styled.div`
+
+    color: #E74A3B;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 16px;
+
+`;
+
+export const Edit = styled.div`
+
+    color: #F6C23E;
+    font-size: 28px;
+    cursor: pointer;
+
+`;

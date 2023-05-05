@@ -21,6 +21,7 @@ const TableWrapper = ({ text, children, items, toggleModal }: TableProps): JSX.E
                 {items.map((item: { id: Key | null | undefined; content: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; }) => (
                     <li key={item.id}>{item.content}</li>
                 ))}
+                <li>Ações</li>
             </Columns>
             <div style={{display:"flex", flexDirection:"column", width: "calc(100% - 64px)" }}>
                 { children }

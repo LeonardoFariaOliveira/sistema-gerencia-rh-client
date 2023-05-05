@@ -4,7 +4,7 @@ import BaseScreen from "../../components/BaseScreen";
 import BgDisable from "../../components/BgDisable";
 import Header from "../../components/Header";
 import Menu from "../../components/Menu";
-import ModalNewCompany from "../../components/ModalNewCompany";
+import ModalNewCompany from "../../components/modals/ModalNewCompany";
 import SearchBar from "../../components/SearchBar";
 import TableWrapper from "../../components/TableWrapper";
 import { NameCompany } from "../../components/TableWrapper/style";
@@ -13,6 +13,7 @@ import { useGetCompanies } from "../../hooks/useApi";
 import ListLineEmployees from "../../components/ListLineEmployees";
 import ListLineCompanies from "../../components/ListLineCompanies";
 import LoginAdm from "../LoginAdm";
+import ModalDelete from "../../components/modals/ModalDeleteCompany";
 
 const CompanyList = ():JSX.Element => {
     
@@ -40,6 +41,7 @@ const CompanyList = ():JSX.Element => {
     const toggleModal = () => {
         setShowModal(!showModal)
     }
+    
 
     useEffect(() => {
         response.then(resolve => {
@@ -62,13 +64,13 @@ const CompanyList = ():JSX.Element => {
             <TableWrapper text="Lista de empresas cadastradas" items={items} toggleModal={toggleModal}>
             <>
             {companies.map((item) => (
-            <ListLineCompanies name={item.popularName} company={ item }/>
+            <ListLineCompanies name={item.popularName} company={ item } />
             ))}
             </> 
             </TableWrapper>
             </BaseScreen>
 
-            <ModalNewCompany toggleModal={toggleModal} showModal={showModal} />
+            <ModalNewCompany text='Cadastre uma empresa' toggleModal={toggleModal} showModal={showModal} />
             <BgDisable toggleModal={toggleModal} showModal={showModal}/>
             </> 
             
@@ -90,8 +92,8 @@ const CompanyList = ():JSX.Element => {
             </TableWrapper>
             </BaseScreen>
 
-            <ModalNewCompany toggleModal={toggleModal} showModal={showModal} />
-            <BgDisable toggleModal={toggleModal} showModal={showModal}/>
+            <ModalNewCompany text='Cadastre uma empresa' toggleModal={toggleModal} showModal={showModal} />
+            <BgDisable toggleModal={toggleModal} showModal={showModal} />
             </> 
             
         )

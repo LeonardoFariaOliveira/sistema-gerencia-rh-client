@@ -14,4 +14,6 @@ export const Container = styled.div<ContainerProps>`
     display: ${({ showModal }) => showModal ? 'block' : 'none'};
     transition: all ease .8s;
     z-index: 9999;
+    top: 0;
+    left: 0;
 `;

@@ -1,19 +1,21 @@
 import { SetStateAction, useState, useContext } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { AuthAdminContext } from '../../contexts/AuthAdminContext';
-import { newCompany } from '../../hooks/useApi';
-import ButtonSecondary from '../buttons/ButtonSecondary';
+import { AuthAdminContext } from '../../../contexts/AuthAdminContext';
+import { newCompany } from '../../../hooks/useApi';
+import ButtonSecondary from '../../buttons/ButtonSecondary';
 import {Container, Header, OptionsWrapper, CloseBtn, ShortInputsDiv, Spacement } from './style'
-import ExceptionMessage from '../ExceptionMessage';
-import ShortInput from '../inputs/ShortInput';
-import Input from '../inputs/Input';
+import ExceptionMessage from '../../ExceptionMessage';
+import ShortInput from '../../inputs/ShortInput';
+import Input from '../../inputs/Input';
 
 interface ModalInterface {
     toggleModal: () => void;
     showModal: boolean; 
+    info?: any;
+    text: string;
 }
 
-const ModalNewCompany = ({ toggleModal, showModal }: ModalInterface): JSX.Element => {
+const ModalNewCompany = ({ toggleModal, showModal, info, text }: ModalInterface): JSX.Element => {
 
     const [corporateName, setCorporateName] = useState<string>('')
     const [popularName, setPopularName] = useState<string>('')
@@ -78,21 +80,21 @@ const ModalNewCompany = ({ toggleModal, showModal }: ModalInterface): JSX.Elemen
                 null
             }
             <Container showModal={ showModal }>
-                <Header> Cadastre uma Empresa
+                <Header> {text}
                 <CloseBtn onClick={toggleModal}> <IoMdClose /> </CloseBtn>
                 </Header>
 
                 <OptionsWrapper>
                     <ShortInputsDiv>
                         <ShortInput title='Razão Social'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCorporateName(e.target.value)} /> </ShortInput>
-                        <ShortInput title='Nome Popular'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPopularName(e.target.value)} /> </ShortInput>
+                        <ShortInput title='Nome Popular'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPopularName(e.target.value)} placeholder={info && info.name}/> </ShortInput>
                         <ShortInput title="CNPJ"> <Input mask='cnpj' onBlur={(e: { target: { value: SetStateAction<string>; }; }) => setCnpj(e.target.value)} /> </ShortInput>
                     </ShortInputsDiv>
-                    <ShortInput title='E-mail'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)} /> </ShortInput>
+                    <ShortInput title='E-mail'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)} placeholder={info && info.email}/> </ShortInput>
                     <ShortInputsDiv>
                     <ShortInput title='Senha'> <Input type="password" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)} /> </ShortInput>
                     <ShortInput title='Confirma a Senha'> <Input type="password" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setSecondPassword(e.target.value)} /> </ShortInput>
-                    <ShortInput title='Número para Contato'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPhoneNumber(e.target.value)} /> </ShortInput>
+                    <ShortInput title='Número para Contato'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPhoneNumber(e.target.value)} placeholder={info && info.number}/> </ShortInput>
                     <ShortInput title='País'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountry(e.target.value)} /> </ShortInput>
                     <ShortInput title="CEP"> <Input mask="cep" onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCep(e.target.value)} onBlur={(e) => checkCep(e)}/> </ShortInput>
                     <ShortInput title='Estado'> <Input value={countryArea} onChange={(e: { target: { value: SetStateAction<string>; }; }) => setCountryArea(e.target.value)} /> </ShortInput>

@@ -1,9 +1,9 @@
 import BaseScreen from "../../components/BaseScreen";
 import SearchBar from "../../components/SearchBar";
 import TableWrapper from "../../components/TableWrapper";
-import { useContext, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import { useGetEmployees } from "../../hooks/useApi";
-import ModalNewEmployee from "../../components/ModalNewEmployee";
+import ModalNewEmployee from "../../components/modals/ModalNewEmployee";
 import BgDisable from "../../components/BgDisable";
 import Menu from "../../components/Menu";
 import Header from "../../components/Header";
@@ -11,18 +11,26 @@ import { Navigate } from "react-router-dom";
 import { AuthUserContext } from "../../contexts/AuthUserContext";
 import ListLineEmployees from "../../components/ListLineEmployees";
 import LoginUser from "../LoginUser";
+import ModalDelete from "../../components/modals/ModalDeleteCompany";
 const EmployeeList = ():JSX.Element => {
     
     const userContext = useContext(AuthUserContext)
     const [showModal, setShowModal] = useState<boolean>(false)
+    const [showModalDelete, setShowModalDelete] = useState<boolean>(false)
     const [employees, setEmployees] = useState<EmployeeInfo[]>([]);
+
+
     const id = userContext.idUser ?? localStorage.getItem("id")
-    console.log(id)
+    const nameCompany = userContext.popularNameUser
+    
     const response = useGetEmployees(id);
 
 
     const toggleModal = () => {
         setShowModal(!showModal)
+    }
+    const toggleModalDelete = () => {
+        setShowModal(!showModalDelete)
     }
     
     useEffect(() => {
@@ -61,7 +69,7 @@ const EmployeeList = ():JSX.Element => {
         return(
             <>
             <Menu />
-            <Header name="Cyberswitch" user="admin"/>
+            <Header name={localStorage.name} user="admin"/>
             <BaseScreen>
             <SearchBar />
             <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
@@ -83,7 +91,7 @@ const EmployeeList = ():JSX.Element => {
         return(
             <>
             <Menu />
-            <Header name="Cyberswitch" user="admin"/>
+            <Header name={localStorage.name} user="admin"/>
             <BaseScreen>
             <SearchBar />
             <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>

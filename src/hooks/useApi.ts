@@ -199,6 +199,47 @@ export async function useGetEmployees (idUser:string | Promise<string> | null) {
 
 }
 
+export async function deleteCompany(id: string, token: any) {
+    
+  try{
+    window.location.reload();
+    const response = await axios.delete(`http://localhost:3333/v1/companies/${id}`,{
+      headers: {
+        Authentication: `Bearer ${token ?? localStorage.getItem("token")}`,
+      }
+    })
+    return response;
+  }catch(e:any){
+    return{
+      status: e.response.status,
+      data:{
+        companies:[]
+      }
+    }
+  }
+}
+
+export async function deleteEmployee(id: string, token: any) {
+    
+  try{
+    window.location.reload();
+    const response = await axios.delete(`http://localhost:3333/v1/employees/${id}`,{
+      headers: {
+        Authentication: `Bearer ${token ?? localStorage.getItem("token")}`,
+      }
+    })
+    return response;
+  }catch(e:any){
+    return{
+      status: e.response.status,
+      data:{
+        companies:[]
+      }
+    }
+  }
+}
+
+
 export async function useGetCompanies () {
   const adminContext = useContext(AuthAdminContext)
     
