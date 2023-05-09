@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthAdminContext } from "../contexts/AuthAdminContext";
 import { AuthUserContext } from "../contexts/AuthUserContext";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export async function newAdmin (name: string, password: string){
   const response = await axios.post('http://localhost:3333/v1/03202327', 
@@ -181,7 +181,8 @@ export async function useGetEmployees (idUser:string | Promise<string> | null) {
     console.log(userContext.tokenUser ?? localStorage.getItem("tokenUser"))
     const response = await axios.get(`http://localhost:3333/v1/employees/${idUser}`,{
       headers: {
-        Authentication: `Bearer ${userContext.tokenUser ?? localStorage.getItem("tokenUser")}`,
+        "Content-type": "application/json; charset=UTF-8",
+        "Authentication": `Bearer ${userContext.tokenUser ?? localStorage.getItem("tokenUser")}`,
       }
     })
     console.log(response)
@@ -198,14 +199,15 @@ export async function useGetEmployees (idUser:string | Promise<string> | null) {
   }
 }
 
-export async function useGetCompany (idUser:string | Promise<string> | null) {
+export async function getCompany (idUser:string | Promise<string> | null) {
 
-  const userContext = useContext(AuthUserContext)
+  // const userContext = useContext(AuthUserContext)
   try{
-    console.log(userContext.tokenUser ?? localStorage.getItem("tokenUser"))
+    console.log(localStorage.getItem("tokenUser"))
     const response = await axios.get(`http://localhost:3333/v1/companies/${idUser}`,{
       headers: {
-        Authentication: `Bearer ${userContext.tokenUser ?? localStorage.getItem("tokenUser")}`,
+        "Content-type": "application/json; charset=UTF-8",
+        "Authentication": `Bearer ${localStorage.getItem("tokenUser")}`,
       }
     })
     console.log(response)
@@ -228,7 +230,8 @@ export async function deleteCompany(id: string, token: any) {
     window.location.reload();
     const response = await axios.delete(`http://localhost:3333/v1/companies/${id}`,{
       headers: {
-        Authentication: `Bearer ${token ?? localStorage.getItem("token")}`,
+        "Content-type": "application/json; charset=UTF-8",
+        "Authentication": `Bearer ${token ?? localStorage.getItem("token")}`,
       }
     })
     return response;
@@ -248,7 +251,8 @@ export async function deleteEmployee(id: string, token: any) {
     window.location.reload();
     const response = await axios.delete(`http://localhost:3333/v1/employees/${id}`,{
       headers: {
-        Authentication: `Bearer ${token ?? localStorage.getItem("token")}`,
+        "Content-type": "application/json; charset=UTF-8",
+        "Authentication": `Bearer ${token ?? localStorage.getItem("token")}`,
       }
     })
     return response;
@@ -270,7 +274,8 @@ export async function useGetCompanies () {
     //const adminContext = useContext(AuthAdminContext)
     const response = await axios.get('http://localhost:3333/v1/companies',{
       headers: {
-        Authentication: `Bearer ${adminContext.token ?? localStorage.getItem("token")}`,
+        "Content-type": "application/json; charset=UTF-8",
+        "Authentication": `Bearer ${adminContext.token ?? localStorage.getItem("token")}`,
       }
     })
     return response;
@@ -283,4 +288,61 @@ export async function useGetCompanies () {
     }
   }
 
+}
+
+export async function updateCompany(
+  id: Promise<string> | null | string, 
+  token: Promise<string> | null | string,
+  email:string,
+  password: string,
+  corporateName: string,
+  popularName: string,
+  cnpj: string,
+  phoneNumber: string,
+  country: string,
+  countryArea: string,
+  city: string,
+  neighboor: string,
+  street: string,
+  number: string,
+  photoUrl?: string,
+  ) {
+    
+  // try{
+    console.log(cnpj);
+    // console.log(token ?? localStorage.getItem("tokenUser"))
+    const response = await axios.patch(`http://localhost:3333/v1/companies/${id}`,
+    {   
+      email:email,
+      password:password,
+      corporateName: corporateName,
+      popularName: popularName,
+      cnpj: cnpj,
+      photoUrl: photoUrl,
+      phoneNumber: phoneNumber,
+      address:{
+        country: country,
+        countryArea: countryArea,
+        city: city,
+        neighboor: neighboor,
+        street: street,
+        number: number,
+      }
+    },
+    {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        'Authentication': `Bearer ${token ?? localStorage.getItem("tokenUser")}`,
+      }
+    })
+    return response;
+  // }catch(e:any){
+  //   console.log(e)
+  //   return{
+  //     status: e.response.status,
+  //     data:{
+  //       company:{}
+  //     }
+  //   }
+  // }
 }

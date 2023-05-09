@@ -13,7 +13,7 @@ export const Container = styled.div<ContainerProps>`
     top: 50vh;
     left: 50vw;
     z-index: 99998;
-    transform: translate(${({ showModal }) => showModal ? 'calc(-50% + -80px) , -100%' : 'calc(-50% + -80px) , -100vh'});
+    transform: translate(${({ showModal }) => showModal ? 'calc(-50% + -80px) , -100%' : 'calc(-50% + -80px) , -200vh'});
     transition: all ease .8s;
 
 `;

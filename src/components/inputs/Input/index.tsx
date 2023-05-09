@@ -4,11 +4,12 @@ import { cep, cnpj, cpf, date } from '../masks';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
     mask?: "cpf" | "date" | "cnpj" | "cep";
+    block?:boolean;
 }
 
-const Input:React.FC<InputProps> = ({mask, ...props}) => {
+const Input:React.FC<InputProps> = ({block, mask, ...props}) => {
 
-
+  // console.log("block:"+block)
     const handleOnKeyUp = useCallback((e: React.FormEvent<HTMLInputElement>) => {
 
     if(mask === 'cpf'){ cpf(e); }
@@ -22,6 +23,7 @@ const Input:React.FC<InputProps> = ({mask, ...props}) => {
 
     return(
             <InputStyled 
+            block = {block}
             {...props}
             onKeyUp={handleOnKeyUp}
             />

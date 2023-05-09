@@ -2,7 +2,7 @@ import BaseScreen from "../../components/BaseScreen";
 import SearchBar from "../../components/SearchBar";
 import TableWrapper from "../../components/TableWrapper";
 import { SetStateAction, useContext, useEffect, useState } from "react";
-import { useGetEmployees } from "../../hooks/useApi";
+import { getCompany, useGetEmployees } from "../../hooks/useApi";
 import ModalNewEmployee from "../../components/modals/ModalNewEmployee";
 import BgDisable from "../../components/BgDisable";
 import Header from "../../components/Header";
@@ -24,6 +24,7 @@ const EmployeeList = ():JSX.Element => {
     const nameCompany = userContext.popularNameUser
     
     const response = useGetEmployees(id);
+    // const isUserActive = useGetCompany(id);
 
 
     const toggleModal = () => {
@@ -34,6 +35,12 @@ const EmployeeList = ():JSX.Element => {
     }
     
     useEffect(() => {
+        getCompany(id).then(resolve => {
+            console.log(resolve)
+            if(resolve.status === 401)
+                localStorage.clear()
+            console.log(resolve)
+        })
         response.then(resolve => {
             console.log(resolve)
             if(resolve.status === 401)
@@ -70,16 +77,15 @@ const EmployeeList = ():JSX.Element => {
             <MenuUser />
             <Header name={localStorage.name}/>
             <BaseScreen>
-            <SearchBar />
-            <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
-                <>
-                {employees.map((item) => (
-                <ListLineEmployees name={item.name} employee={ item }/>
-                ))}
-                </> 
-            </TableWrapper>
+                <SearchBar />
+                <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
+                    <>
+                    {employees.map((item) => (
+                    <ListLineEmployees name={item.name} employee={ item }/>
+                    ))}
+                    </> 
+                </TableWrapper>
             </BaseScreen>
-    
             <ModalNewEmployee toggleModal={toggleModal} showModal={showModal} />
             <BgDisable toggleModal={toggleModal} showModal={showModal}/>
             </>

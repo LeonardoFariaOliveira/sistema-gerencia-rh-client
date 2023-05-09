@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const InputStyled = styled.input`
+interface blockProps{
+    block?: boolean;
+}
+
+export const InputStyled = styled.input<blockProps>`
 
     box-sizing: border-box;
     width: 100%;
@@ -9,8 +13,9 @@ export const InputStyled = styled.input`
     border-style: solid;
     border-width: 1px;
     border-color: ${({ theme }) => theme.text.secondary};
-    cursor: pointer;
     padding-left: 16px;
+    ${({ block }) => block ? "background-color:#F2F2F2" : "background-color:inherit"};
+    ${({ block }) => block ? "cursor:auto" : "background-color:inherit"};
     font-size: 16px;
     color: ${({ theme }) => theme.text.primary};
     outline-color: ${({ theme }) => theme.text.primary};

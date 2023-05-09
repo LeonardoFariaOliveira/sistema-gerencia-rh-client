@@ -11,13 +11,25 @@ export const EditForm = styled.div`
     
     `;
 
-export const UserImage = styled.div`
+export const UserImageArea = styled.div`
 
 display: flex;
 align-items: center;
 justify-content: center;
 font-size: 150px;
 padding: 50px 0;
+
+`;
+
+export const UserImage = styled.div`
+
+    background-color: #f2f2f2;
+    border: 1px solid #aaa;
+    max-width: 200px;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    padding: 15px 0px;
 
 `;
 
@@ -54,7 +66,6 @@ interface blockProps{
 }
 
 export const Block = styled.div<blockProps>`
-
     ${({ block }) => block ? 'pointer-events: none;' : 'pointer-events: all;'}
 
 `;
