@@ -8,10 +8,9 @@ import ModalEditCompany from '../modals/ModalEditCompany';
 
 interface HeaderProps {
     name: string; 
-    user: string;
 }
 
-const Header = ({ name, user }: HeaderProps): JSX.Element => {
+const Header = ({ name }: HeaderProps): JSX.Element => {
 
     const [showModalEdit, setShowModalEdit] = useState<boolean>(false)
     

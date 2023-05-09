@@ -13,6 +13,8 @@ export const AuthUserProvider = ({ children }: {children: JSX.Element}) => {
             setTokenUser(response.token);
             setIdUser(response.id);
             setPopularNameUser(response.popularName.toString());
+            setPopularNameUser(response.popularName.toString());
+            console.log(response)
             localStorage.setItem("name", response.popularName.toString())
             localStorage.setItem("tokenUser", response.token)
             localStorage.setItem("id", response.id)

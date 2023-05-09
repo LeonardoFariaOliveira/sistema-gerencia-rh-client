@@ -8,6 +8,7 @@ import RequireAdminAuth from './routes/RequireAdminAuth';
 import LogoutScreen from './routes/LogoutScreen';
 import RequireUserAuth from './routes/RequireUserAuth';
 import { Routes, Route } from 'react-router-dom';
+import EditCompanyInfo from './routes/EditCompanyInfo';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path='/' element={ <LogoutScreen /> }/>
       <Route path='/adm' element={ <RequireAdminAuth /> }/>
       <Route path='/user' element={ <RequireUserAuth /> }/>
+      <Route path='/editCompanyInfo' element={ <EditCompanyInfo /> }/>
       <Route path='/companyList' element={ <CompanyList /> }/>
       <Route path='/employeeList' element={ <EmployeeList /> }/>
     </Routes>

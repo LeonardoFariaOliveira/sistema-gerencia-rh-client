@@ -52,35 +52,11 @@ const CompanyList = ():JSX.Element => {
         }).then(data => setCompanies(data.companies))
     }, [showModal])
 
-
-
-    if(adminContext.token){
+    if(adminContext.token || localStorage.getItem("token")){
         return(
             <>
             <Menu />
-            <Header name="Leonardo Faria" user="admin"/>
-            <BaseScreen>
-            <SearchBar />
-            <TableWrapper text="Lista de empresas cadastradas" items={items} toggleModal={toggleModal}>
-            <>
-            {companies.map((item) => (
-            <ListLineCompanies name={item.popularName} company={ item } />
-            ))}
-            </> 
-            </TableWrapper>
-            </BaseScreen>
-
-            <ModalNewCompany text='Cadastre uma empresa' toggleModal={toggleModal} showModal={showModal} />
-            <BgDisable toggleModal={toggleModal} showModal={showModal}/>
-            </> 
-            
-        )
-    }
-    else if(localStorage.getItem("token")){
-        return(
-            <>
-            <Menu />
-            <Header name="Leonardo Faria" user="admin"/>
+            <Header name="Leonardo Faria"/>
             <BaseScreen>
             <SearchBar />
             <TableWrapper text="Lista de empresas cadastradas" items={items} toggleModal={toggleModal}>

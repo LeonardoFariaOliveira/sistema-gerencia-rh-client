@@ -5,13 +5,13 @@ import { SetStateAction, useContext, useEffect, useState } from "react";
 import { useGetEmployees } from "../../hooks/useApi";
 import ModalNewEmployee from "../../components/modals/ModalNewEmployee";
 import BgDisable from "../../components/BgDisable";
-import Menu from "../../components/Menu";
 import Header from "../../components/Header";
 import { Navigate } from "react-router-dom";
 import { AuthUserContext } from "../../contexts/AuthUserContext";
 import ListLineEmployees from "../../components/ListLineEmployees";
 import LoginUser from "../LoginUser";
 import ModalDelete from "../../components/modals/ModalDeleteCompany";
+import MenuUser from "../../components/MenuUser";
 const EmployeeList = ():JSX.Element => {
     
     const userContext = useContext(AuthUserContext)
@@ -68,8 +68,8 @@ const EmployeeList = ():JSX.Element => {
         
         return(
             <>
-            <Menu />
-            <Header name={localStorage.name} user="admin"/>
+            <MenuUser />
+            <Header name={localStorage.name}/>
             <BaseScreen>
             <SearchBar />
             <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
@@ -90,8 +90,8 @@ const EmployeeList = ():JSX.Element => {
     else if(localStorage.getItem("tokenUser")){
         return(
             <>
-            <Menu />
-            <Header name={localStorage.name} user="admin"/>
+            <MenuUser />
+            <Header name={localStorage.name}/>
             <BaseScreen>
             <SearchBar />
             <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
