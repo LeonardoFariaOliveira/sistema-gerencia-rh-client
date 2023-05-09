@@ -34,7 +34,6 @@ const EmployeeList = ():JSX.Element => {
     }
     
     useEffect(() => {
-        console.log("opa")
         response.then(resolve => {
             console.log(resolve)
             if(resolve.status === 401)

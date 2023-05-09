@@ -196,7 +196,30 @@ export async function useGetEmployees (idUser:string | Promise<string> | null) {
       }
     }
   }
+}
 
+export async function useGetCompany (idUser:string | Promise<string> | null) {
+
+  const userContext = useContext(AuthUserContext)
+  try{
+    console.log(userContext.tokenUser ?? localStorage.getItem("tokenUser"))
+    const response = await axios.get(`http://localhost:3333/v1/companies/${idUser}`,{
+      headers: {
+        Authentication: `Bearer ${userContext.tokenUser ?? localStorage.getItem("tokenUser")}`,
+      }
+    })
+    console.log(response)
+    return response;
+  }catch(e:any){
+    return{
+      status: e.response.status,
+      data:{
+        data:{
+          employees:[]
+        }
+      }
+    }
+  } 
 }
 
 export async function deleteCompany(id: string, token: any) {
@@ -261,4 +284,3 @@ export async function useGetCompanies () {
   }
 
 }
-
