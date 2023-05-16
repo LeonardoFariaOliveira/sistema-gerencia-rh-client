@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface menuProps {
@@ -86,5 +87,12 @@ export const SectionName = styled.p`
     font-weight: 900;
     color: #7d9af0;
     margin-top: 44px;
+
+`;
+
+export const LinkStyled = styled(Link)`
+
+    text-decoration: none;
+    color: currentColor;
 
 `;

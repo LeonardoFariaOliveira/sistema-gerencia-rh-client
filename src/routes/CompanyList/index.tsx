@@ -34,6 +34,7 @@ const CompanyList = ():JSX.Element => {
         { id: 2, content: 'E-mail' },
         { id: 3, content: 'Telefone' },
         { id: 4, content: 'Data de criação' },
+        { id: 4, content: 'Ações' },
       ];
 
     const response = useGetCompanies();
@@ -56,7 +57,7 @@ const CompanyList = ():JSX.Element => {
         return(
             <>
             <Menu />
-            <Header name="Leonardo Faria"/>
+            <Header name="Administrador"/>
             <BaseScreen>
             <SearchBar />
             <TableWrapper text="Lista de empresas cadastradas" items={items} toggleModal={toggleModal}>

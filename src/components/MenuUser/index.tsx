@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IoMdClose, IoMdMenu } from 'react-icons/io'
-import { Container, ToggleBtn, ItensWrapper , LogoDiv , Dashboard, SectionName } from './style'
+import { Container, ToggleBtn, ItensWrapper , LogoDiv , Dashboard, SectionName, LinkStyled } from './style'
 import logoIcon from '../../assets/icon/logo.svg'
 import dashboard from '../../assets/icon/dashboard.svg'
 import gear from '../../assets/icon/gear.svg'
@@ -39,8 +39,8 @@ const MenuUser: React.FC = () => {
 
                 <SelectionStyled text={ 'Empresas' } img={ gear }>
                     <ul>
-                        <li onClick={() => toggleMenu()}> <Link style={ linkStyle } to={'/editCompanyInfo'} > Dados da Empresa </Link> </li>
-                        <li onClick={() => toggleMenu()}> <Link style={ linkStyle } to={'/employeeList'} > Funcionários </Link> </li>
+                        <li onClick={() => toggleMenu()}> <LinkStyled to={'/editCompanyInfo'} > Dados da Empresa </LinkStyled> </li>
+                        <li onClick={() => toggleMenu()}> <LinkStyled to={'/employeeList'} > Funcionários </LinkStyled> </li>
                     </ul>
                 </SelectionStyled>
 
@@ -48,7 +48,7 @@ const MenuUser: React.FC = () => {
 
                 <SelectionStyled text={ 'Emissão' } img={ doc } >
                     <ul>
-                        <li onClick={() => toggleMenu()}> Medidas Disciplinares </li>
+                        <li onClick={() => toggleMenu()}> <LinkStyled to={'/documents'}> Medidas Disciplinares </LinkStyled> </li>
                         <li onClick={() => toggleMenu()}> Acordos </li>
                         <li onClick={() => toggleMenu()}> Outros Documentos </li>
                     </ul>

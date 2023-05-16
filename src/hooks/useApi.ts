@@ -227,7 +227,6 @@ export async function getCompany (idUser:string | Promise<string> | null) {
 export async function deleteCompany(id: string, token: any) {
     
   try{
-    window.location.reload();
     const response = await axios.delete(`http://localhost:3333/v1/companies/${id}`,{
       headers: {
         "Content-type": "application/json; charset=UTF-8",

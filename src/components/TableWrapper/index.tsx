@@ -6,7 +6,7 @@ interface TableProps {
     text: string;
     newElement?: () => void;
     children: any;
-    items: any;
+    items?: any;
     toggleModal?: () => void;
 }
 
@@ -18,10 +18,9 @@ const TableWrapper = ({ text, children, items, toggleModal }: TableProps): JSX.E
                 <Icon onClick={toggleModal}> <BiPlusMedical /> </Icon>
             </Header>
             <Columns>
-                {items.map((item: { id: Key | null | undefined; content: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; }) => (
+                {items && items.map((item: { id: Key | null | undefined; content: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; }) => (
                     <li key={item.id}>{item.content}</li>
                 ))}
-                <li>Ações</li>
             </Columns>
             <div style={{display:"flex", flexDirection:"column", width: "calc(100% - 64px)" }}>
                 { children }

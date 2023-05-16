@@ -9,6 +9,7 @@ import LogoutScreen from './routes/LogoutScreen';
 import RequireUserAuth from './routes/RequireUserAuth';
 import { Routes, Route } from 'react-router-dom';
 import EditCompanyInfo from './routes/EditCompanyInfo';
+import Documents from './routes/Documents';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
       <Route path='/editCompanyInfo' element={ <EditCompanyInfo /> }/>
       <Route path='/companyList' element={ <CompanyList /> }/>
       <Route path='/employeeList' element={ <EmployeeList /> }/>
+      <Route path='/employeeList' element={ <EmployeeList /> }/>
+      <Route path='/documents' element={ <Documents /> }/>
     </Routes>
     </ ThemeProvider>
   );

@@ -27,8 +27,9 @@ const ModalDelete = ({ toggleModal, showModal, name, id }: ModalInterface):JSX.E
             <Body>
                 <Delete onClick={() => {
                     
-                    toggleModal()
+                    toggleModal();
                     deleteCompany(id, adminContext.token);
+                    window.location.reload();
                 
                 }}> <p> Deletar </p> </Delete>
             </Body>

@@ -68,6 +68,7 @@ const EmployeeList = ():JSX.Element => {
         { id: 4, content: 'Início' },
         { id: 5, content: 'Data de nascimento' },
         { id: 6, content: 'Salário' },
+        { id: 6, content: 'Ações' },
       ];
 
     if(userContext.tokenUser){
