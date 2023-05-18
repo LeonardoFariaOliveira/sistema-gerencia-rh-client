@@ -63,7 +63,7 @@ const ModalNewDocument = ({ toggleModal, showModal, info, text }: ModalInterface
                         console.log(type)
                         console.log(infos)
                         toggleModal();
-                        newDocumentType(type, infos)
+                        newDocumentType(type, infos, admContext.token)
                     }}> Cadastrar </ButtonSecondary>
                 </OptionsWrapper>
             </Container>
