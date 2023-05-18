@@ -8,6 +8,7 @@ import {Container, Header, OptionsWrapper, CloseBtn, ShortInputsDiv, Spacement, 
 import ExceptionMessage from '../../ExceptionMessage';
 import ShortInput from '../../inputs/ShortInput';
 import Input from '../../inputs/Input';
+import { newDocumentType } from '../../../hooks/useApiDocuments';
 
 interface ModalInterface {
     toggleModal: () => void;
@@ -19,7 +20,7 @@ interface ModalInterface {
 const ModalNewDocument = ({ toggleModal, showModal, info, text }: ModalInterface): JSX.Element => {
 
     const [type, setType] = useState<string>('');
-    const [infos, setInfos] = useState<SetStateAction<string>[]>([""]);
+    const [infos, setInfos] = useState<string[]>([""]);
 
     const admContext = useContext(AuthAdminContext)
 
@@ -28,7 +29,7 @@ const ModalNewDocument = ({ toggleModal, showModal, info, text }: ModalInterface
         setInfos([...infos, ""])
     }
 
-    const saveInfos = (e: SetStateAction<string>, index: number) => {
+    const saveInfos = (e: string, index: number) => {
         infos[index] = e;
         setInfos([...infos])
     }
@@ -42,12 +43,12 @@ const ModalNewDocument = ({ toggleModal, showModal, info, text }: ModalInterface
 
                 <OptionsWrapper>
                     <ShortInputsDiv style={{ flexDirection:'column', alignItems:'flex-start' }}>
-                        <ShortInput title='Tipo de Documento'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setType(e.target.value)} /> </ShortInput>
+                        <ShortInput title='Tipo de Documento'> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => setType(e.target.value.toString())} /> </ShortInput>
 
                         {
                             infos.map((info: any, index: any) => (
                             <InfoWrapper key={index}>
-                                <ShortInput title={`Info ${index + 1}`}> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => saveInfos(e.target.value, index)} /> </ShortInput>
+                                <ShortInput title={`Info ${index + 1}`}> <Input onChange={(e: { target: { value: SetStateAction<string>; }; }) => saveInfos(e.target.value.toString(), index)} /> </ShortInput>
                                 <IconAdd onClick={(e) => addInfo(e)}>
                                     <AiOutlinePlus />
                                 </IconAdd>
@@ -59,8 +60,10 @@ const ModalNewDocument = ({ toggleModal, showModal, info, text }: ModalInterface
                     <ButtonSecondary onClick={(e) => {
                         e.preventDefault();
                         alert('Cadastrando novo tipo de documento');
+                        console.log(type)
+                        console.log(infos)
                         toggleModal();
-                        window.location.reload(); 
+                        newDocumentType(type, infos)
                     }}> Cadastrar </ButtonSecondary>
                 </OptionsWrapper>
             </Container>

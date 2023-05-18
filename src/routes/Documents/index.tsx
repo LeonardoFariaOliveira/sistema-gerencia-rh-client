@@ -17,7 +17,6 @@ const Documents = ():JSX.Element => {
 
     const toggleModalNew = () => {
         setShowModalNew(!showModalNew);
-        console.log(showModalNew)
     }
     
     const items = {}
