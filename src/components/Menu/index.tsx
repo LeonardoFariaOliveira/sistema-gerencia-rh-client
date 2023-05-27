@@ -39,7 +39,7 @@ const Menu: React.FC = () => {
 
                 <SelectionStyled text={ 'Empresas' } img={ gear }>
                     <ul>
-                        <li onClick={() => toggleMenu()}> <LinkStyled to={'/companyList'} > Listar Empresas </LinkStyled> </li>
+                    <LinkStyled to={'/companyList'} > <li onClick={() => toggleMenu()}> Listar Empresas </li> </LinkStyled>
                     </ul>
                 </SelectionStyled>
 
@@ -47,7 +47,7 @@ const Menu: React.FC = () => {
 
                 <SelectionStyled text={ 'Emissão' } img={ doc } >
                     <ul>
-                        <li onClick={() => toggleMenu()}> <LinkStyled to={'/documents'} > Tipos de documentos </LinkStyled> </li>
+                    <LinkStyled to={'/documents'}> <li onClick={() => toggleMenu()}> Tipos de documentos </li> </LinkStyled>
                     </ul>
                 </SelectionStyled>
             </ItensWrapper>

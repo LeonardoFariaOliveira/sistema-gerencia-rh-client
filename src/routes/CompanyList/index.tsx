@@ -46,7 +46,6 @@ const CompanyList = ():JSX.Element => {
 
     useEffect(() => {
         response.then(resolve => {
-            console.log(resolve)
             if(resolve.status === 401)
             localStorage.clear()
             return resolve.data
@@ -63,7 +62,7 @@ const CompanyList = ():JSX.Element => {
             <TableWrapper text="Lista de empresas cadastradas" items={items} toggleModal={toggleModal}>
             <>
             {companies.map((item) => (
-            <ListLineCompanies name={item.popularName} company={ item }/>
+            <ListLineCompanies key={item.id} name={item.popularName} company={ item }/>
             ))}
             </> 
             </TableWrapper>

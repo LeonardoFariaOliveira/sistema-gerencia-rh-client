@@ -7,6 +7,9 @@ interface Props {
 
 export default function BgDisable({ toggleModal, showModal }: Props) {
   return (
-    <Container onClick={toggleModal} showModal={ showModal }/>
+    <Container onClick={() => {
+      toggleModal() 
+      window.location.reload()
+    }} showModal={ showModal }/>
   )
 }

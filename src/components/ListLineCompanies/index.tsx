@@ -37,7 +37,7 @@ const ListLineCompanies = ({name, company}: LineProps):JSX.Element => {
     <>
     <Line>
         <Line>
-        <NameStyled>{ name }</NameStyled>
+        <NameStyled to={'/'}>{ name }</NameStyled>
             <Item>{company.email}</Item>
             <Item>{company.phoneNumber}</Item>
             <Item>{company.createdAt}</Item>

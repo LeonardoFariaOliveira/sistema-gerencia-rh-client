@@ -37,17 +37,17 @@ const ListLineEmployees = ({name, employee}: LineProps):JSX.Element => {
     <>
     <Line>
         <NameStyled>{ name }</NameStyled>
-            <Item>{employee.job}</Item>
-            <Item>{employee.sector}</Item>
-            <Item>{employee.admissionDate}</Item>
-            <Item>{employee.birthDate}</Item>
-            <Item>{employee.salary}</Item>
-            <Item>
-                <IconDiv>
-                <Remove onClick={() => toggleModalDelete()}><FaTrashAlt /></Remove>
-                <Edit><FiEdit /></Edit>
-                </IconDiv>
-            </Item>
+        <Item>{employee.job}</Item>
+        <Item>{employee.sector}</Item>
+        <Item>{employee.admissionDate}</Item>
+        <Item>{employee.birthDate}</Item>
+        <Item>{employee.salary}</Item>
+        <Item>
+            <IconDiv>
+            <Remove onClick={() => toggleModalDelete()}><FaTrashAlt /></Remove>
+            <Edit><FiEdit /></Edit>
+            </IconDiv>
+        </Item>
     </Line>
 
     <BgDisable toggleModal={toggleModalDelete} showModal={showModalDelete} />

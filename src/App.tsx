@@ -10,6 +10,7 @@ import RequireUserAuth from './routes/RequireUserAuth';
 import { Routes, Route } from 'react-router-dom';
 import EditCompanyInfo from './routes/EditCompanyInfo';
 import Documents from './routes/Documents';
+import DocumentModels from './routes/DocumentModels';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path='/employeeList' element={ <EmployeeList /> }/>
       <Route path='/employeeList' element={ <EmployeeList /> }/>
       <Route path='/documents' element={ <Documents /> }/>
+      <Route path='/documentModels/:id' element={ <DocumentModels /> }/>
     </Routes>
     </ ThemeProvider>
   );

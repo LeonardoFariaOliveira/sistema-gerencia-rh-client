@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Line = styled.ul`
@@ -13,7 +14,7 @@ export const Line = styled.ul`
 
 `;
 
-export const NameStyled = styled.li`
+export const NameStyled = styled(Link)`
 
     font-size: 16px;
     font-weight: 600;
@@ -27,6 +28,7 @@ export const NameStyled = styled.li`
     cursor: pointer;
     border-left: solid 1px ${({ theme }) => theme.colors.stroke};
     text-align: center;
+    text-decoration: none;
 
 `;
 

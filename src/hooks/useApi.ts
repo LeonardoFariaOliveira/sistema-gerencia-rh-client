@@ -286,7 +286,6 @@ export async function useGetCompanies () {
       }
     }
   }
-
 }
 
 export async function updateCompany(

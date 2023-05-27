@@ -10,8 +10,8 @@ export const Container = styled.div<any>`
     box-sizing: border-box;
     position: absolute;
     left: 50%;
-    top: 20%;
-    transform: translate(${({ showModal }) => showModal ? '-50% , 0' : '-50% , -200%'});
+    top: 5%;
+    transform: translate(${({ showModal }) => showModal ? '-50% , 0%' : '-50% , -200vh'});
     transition: all ease .8s;
     z-index: 99998;
 
@@ -80,9 +80,69 @@ export const IconAdd = styled.div`
 
     position: relative;
     top: 64px;
+    right: 0px;
+    font-size: 36px;
+    color: ${({ theme }) => theme.colors.secondary};
+    cursor: pointer;
+
+`;
+
+export const TagInput = styled.div`
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+`;
+
+export const NewField = styled.div`
+
+    position: relative;
+    top: 22px;
     right: -25px;
     font-size: 36px;
     color: ${({ theme }) => theme.colors.secondary};
     cursor: pointer;
+
+`;
+
+export const Field = styled.div`
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: auto;
+    width: auto;
+    box-sizing: border-box;
+
+    p{
+        font-size: 22px;
+        font-weight: bold;
+        color: ${({ theme }) => theme.text.secondary};
+        margin-top: 22px;
+        margin-bottom: -22px;
+    }
+`
+
+export const SelectStyled = styled.select`
+
+    width: 250px;
+    border: solid ${({ theme }) => theme.text.secondary} 1px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 16px;
+    margin-top: 40px;
+    margin-left: 12px;
+    
+    `;
+
+export const OptionStyled = styled.option`
+    
+    color: ${({ theme }) => theme.text.secondary};
+    font-weight: 500;
 
 `;

@@ -71,7 +71,7 @@ const EmployeeList = ():JSX.Element => {
         { id: 6, content: 'Ações' },
       ];
 
-    if(userContext.tokenUser){
+    if(userContext.tokenUser || localStorage.getItem("tokenUser")){
         
         return(
             <>
@@ -82,7 +82,7 @@ const EmployeeList = ():JSX.Element => {
                 <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
                     <>
                     {employees.map((item) => (
-                    <ListLineEmployees name={item.name} employee={ item }/>
+                    <ListLineEmployees key={item.id} name={item.name} employee={ item }/>
                     ))}
                     </> 
                 </TableWrapper>
@@ -92,27 +92,6 @@ const EmployeeList = ():JSX.Element => {
             </>
         )
         
-    }
-    else if(localStorage.getItem("tokenUser")){
-        return(
-            <>
-            <MenuUser />
-            <Header name={localStorage.name}/>
-            <BaseScreen>
-            <SearchBar />
-            <TableWrapper text="Lista de funcionários/colaboradores " items={ itemsHeader } toggleModal={toggleModal}>
-                <>
-                {employees.map((item) => (
-                <ListLineEmployees name={item.name} employee={ item }/>
-                ))}
-                </> 
-            </TableWrapper>
-            </BaseScreen>
-    
-            <ModalNewEmployee toggleModal={toggleModal} showModal={showModal} />
-            <BgDisable toggleModal={toggleModal} showModal={showModal}/>
-            </>
-        )
     }
     else{
         return (
