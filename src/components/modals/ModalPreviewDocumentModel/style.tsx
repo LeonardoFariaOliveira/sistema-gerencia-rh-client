@@ -60,12 +60,51 @@ export const InfosWrapper = styled.div`
     width: 350px;
     height: 500px;
     background-color: white;
-    padding: 24px 12px;
+    padding: 40px 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     box-sizing: border-box;
+
+`;
+
+export const Title = styled.div`
+
+
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 8px;
+    text-transform:uppercase;
+    margin-bottom: 10px;
+
+`;
+
+export const Paragraph = styled.div<any>`
+
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    text-align: ${({ align }) => align};
+    margin-bottom: 5px;
+
+`;
+
+export const TextCenter = styled.div`
+
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    text-align: center;
+    margin-bottom: 5px;
+
+`;
+
+export const TextFooter = styled.div`
+
+    width: 100%;
+    margin-top: 10px;
+    font-size: 2px !important;
 
 `;
 

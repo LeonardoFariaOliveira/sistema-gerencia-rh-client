@@ -11,13 +11,15 @@ interface DocumentsProps{
 }
 
 export const ListLineDocumentsType = ({ type, infos, id }: DocumentsProps):JSX.Element => {
+    
+    console.log(infos)
     return(
         <Line>
             <NameStyled to={`/documentModels/${id}`}> {type} </NameStyled>
             
-            {infos && infos.map((info, index) => (
+            {infos ? infos.map((info, index) => (
                 <Item key={index}> {info} </Item>
-            ))}
+            )) : null}
 
             <Item>
                 <IconDiv>

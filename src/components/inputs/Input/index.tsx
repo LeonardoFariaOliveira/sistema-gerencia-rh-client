@@ -2,7 +2,7 @@ import { InputHTMLAttributes, useCallback } from 'react';
 import { InputStyled } from './style'
 import { cep, cnpj, cpf, date } from '../masks';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
     mask?: "cpf" | "date" | "cnpj" | "cep";
     block?:boolean;
 }

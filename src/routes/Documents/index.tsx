@@ -24,7 +24,7 @@ const Documents = ():JSX.Element => {
     const [infos, setInfos] = useState<string[]>([""]);
 
     const adminContext = useContext(AuthAdminContext)
-
+    const [document, setDocument] = useState<documentInterface[]>([])
     const [showModalNew, setShowModalNew] = useState<boolean>(false);
     const [showModalPreview, setShowModalPreview] = useState<boolean>(false);
 
@@ -41,15 +41,18 @@ const Documents = ():JSX.Element => {
         { id: 3, content: 'Ações' },
       ];
 
-    const [document, setDocument] = useState<[] | null>(null)
-
-    const response = getDocumentType();
+    
+//documentInterface[] | null
+    // const response = getDocumentType();
 
     useEffect(() => {
-        response.then(resolve => {
+        getDocumentType()
+        .then(resolve => {
+            // console.log(resolve.documentTypes)
             setDocument(resolve.documentTypes)
-           })
-    }, [])
+            // console.log(document)
+        })
+    }, [showModalNew])
 
     if(adminContext.token || localStorage.getItem("token")){
         return(
@@ -60,9 +63,15 @@ const Documents = ():JSX.Element => {
                 <SearchBar />
                 <TableWrapper text="Lista de tipos de documentos" toggleModal={toggleModalNew} items={items}>
 
-                    {document && document.map((type: documentInterface, index) => (
-                        <ListLineDocumentsType key={type.id} type={type.name} id={type.id} infos={type.content}/>
-                    ))}
+                    {document.length > 0  
+                    ? 
+                        // console.log(document)
+                        document.map((type: documentInterface) => (
+                            <ListLineDocumentsType key={type.id} type={type.name} id={type.id} infos={type.content}/>
+                        ))
+                    : 
+                        console.log("document")
+                    }
 
                 </TableWrapper>
 
